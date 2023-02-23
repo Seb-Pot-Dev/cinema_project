@@ -66,13 +66,13 @@ public function listRoles() {
 }
 
 // Lister les info d'un film particulier
-public function InfoFromMovie($movie_name) {
+public function detailsMovie($id_movie) {
     $pdo = Connect::connectToDb();
-    $movie_name="$movie_name";
+    $movie_name="$id_movie";
     $request = $pdo->query("
     SELECT movie_name, release_year, DATE_FORMAT(movie_length, '%H\:%i') AS movie_length, firstname, lastname
     FROM movie 
-    WHERE movie_name = '$movie_name'
+    WHERE id_movie = '$id_movie'
     INNER JOIN director ON movie.director_id = director.id_director
     ");
 
@@ -80,4 +80,15 @@ public function InfoFromMovie($movie_name) {
 
 }
 
+public function detailsActor($id_actor) {
+    $pdo = Connect::connectToDb();
+    $movie_name="$id_actor";
+    $request = $pdo->query("
+    SELECT firstname, lastname, sexe, birthdate
+    FROM
+    WHERE id_actor = '$id_actor'
+    ");
+
+    require "view/detailsActor.php";
+}
 }
