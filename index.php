@@ -47,4 +47,4 @@ if(isset($_GET["action"])){
 // DETAILS MOVIE RENVOIE AU ID CORRESPONDANT
 ?>
 </body>
-</html>
+</html> 
