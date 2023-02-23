@@ -6,7 +6,7 @@ abstract class Connect
 {
 
     const HOST = "localhost";
-    const DB = "cinema";
+    const DB = "cinemaseb";
     const USER = "root";
     const PASS = "";
 

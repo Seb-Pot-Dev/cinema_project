@@ -1,37 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styleGPT.css">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
 
-<?php
+    <?php
     /* On commence et on termine la vue par "ob_start()" et "ob_get_clean()"
 On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation de sortie) pour stocker le contenu dans une variable $contenu
 */
     ob_start();
     ?>
-    <p> Il y a <?= $request->rowCount() ?> films</p>
+    <p> Il y a <?= $request->rowCount() ?> genres</p>
 
     <table>
         <tbody>
             <?php
-            foreach ($request->fetchAll() as $movie) { ?>
+            foreach ($request->fetchAll() as $genre) { ?>
                 <div class="vignette-film">
-                    <span><?= $movie["movie_name"] ?></span>
-                    <span><?= $movie["genre_name"] ?></span>
-                    <span><?= $movie["release_year"] ?></span>
+                    <span><?= $genre["genre_name"] ?></span>
                 </div>
             <?php } ?>
         </tbody>
     </table>
+
 <?php
 
 $title = "Liste des films";

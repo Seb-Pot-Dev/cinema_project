@@ -4,34 +4,26 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 */
 ob_start();
 ?>
-<p><?= $title?></p>
+<p> Il y a <?= $request->rowCount() ?> castings</p>
 
 <table>
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Genre</th>
-            <th>Date de parution</th>
-            <th>Synopsis</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        foreach ($request->fetchAll() as $actor) { ?>
-            <tr>
-                <td><?= $movie["name"] ?></td>
-                <td><? $movie["genre_id"] ?></td>
-                <td><? $movie["release_date"] ?></td>
-                <td><? $movie["synopsis"] ?></td>
-            </tr>
-        <?php } ?>
-    </tbody>
-</table>
+        <tbody>
+            <?php
+            foreach ($request->fetchAll() as $casting) { ?>
+                <div class="vignette-film">
+                    <span><?= $casting["firstname"] ?></span>
+                    <span><?= $casting["lastname"] ?></span>
+                    <span><?= $casting["role_name"] ?></span>
+                    <span><?= $casting["movie_name"] ?></span>
+                </div>
+            <?php } ?>
+        </tbody>
+    </table>
 
 <?php
 
-$title = "Détails du film";
-$secondary_title = "Détails du film";
+$title = "Liste des casting";
+$secondary_title = "Liste des casting";
 $content = ob_get_clean();
 
 // Le require de fin permet d'injecter le contenu dans le template "squelette"  > template.php

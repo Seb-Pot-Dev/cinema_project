@@ -4,7 +4,7 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 */
 ob_start();
 ?>
-<p> Il y a <?= $request->rowCount() ?> acteurs</p>
+<p> Il y a <?= $request->rowCount() ?> réalisateurs</p>
 
 <table>
     <thead>
@@ -17,12 +17,12 @@ ob_start();
     </thead>
     <tbody>
         <?php
-        foreach ($request->fetchAll() as $actor) { ?>
+        foreach ($request->fetchAll() as $director) { ?>
             <tr>
-                <td><?= $actor["lastname"] ?></td>
-                <td><? $actor["firstname"] ?></td>
-                <td><? $actor["sexe"] ?></td>
-                <td><? $actor["birthdate"] ?></td>
+                <td><?= $director["lastname"] ?></td>
+                <td><? $director["firstname"] ?></td>
+                <td><? $director["sexe"] ?></td>
+                <td><? $director["birthdate"] ?></td>
             </tr>
         <?php } ?>
     </tbody>
@@ -30,8 +30,8 @@ ob_start();
 
 <?php
 
-$title = "Liste des acteurs";
-$secondary_title = "Liste des acteurs";
+$title = "Liste des réalisateurs";
+$secondary_title = "Liste des réalisateurs";
 $content = ob_get_clean();
 
 // Le require de fin permet d'injecter le contenu dans le template "squelette"  > template.php
