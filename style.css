@@ -1,8 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(238, 238, 238);
+}
+
 .vignette-film{
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 20px;
 }
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    background-color: grey;
+    padding: 50px 0px 0px 0px;
+}
+nav ul li {
+    background-color: rgb(238, 238, 238);
+    list-style:none;
+    padding: 10px;
+}
 
-
+nav ul li a{
+    text-decoration: none;
+}

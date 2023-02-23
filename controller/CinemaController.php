@@ -73,7 +73,7 @@ class CinemaController
         require "view/listRoles.php";
     }
     
-    public function listCasting()
+    public function listCastings()
     {
         $pdo = Connect::connectToDb();
         $request = $pdo->query("
@@ -85,10 +85,10 @@ class CinemaController
         INNER JOIN actor ON casting.actor_id = actor.id_actor
     ");
 
-        require "view/listCasting.php";
+        require "view/listCastings.php";
 
     }
-    
+
     // Lister les info d'un film particulier
     public function detailsMovie($id_movie)
     {
@@ -101,7 +101,7 @@ class CinemaController
     INNER JOIN director ON movie.director_id = director.id_director
     ");
 
-        require "view/listMovie.php";
+        require "view/listMovies.php";
     }
 
     public function detailsActor($id_actor)
