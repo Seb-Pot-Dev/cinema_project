@@ -7,18 +7,18 @@ ob_start();
 <p> Il y a <?= $request->rowCount() ?> castings</p>
 
 <table>
-        <tbody>
-            <?php
-            foreach ($request->fetchAll() as $casting) { ?>
-                <div class="vignette-film">
-                    <span><?= $casting["firstname"] ?></span>
-                    <span><?= $casting["lastname"] ?></span>
-                    <span><?= $casting["role_name"] ?></span>
-                    <span><?= $casting["movie_name"] ?></span>
-                </div>
-            <?php } ?>
-        </tbody>
-    </table>
+    <tbody>
+        <?php
+        foreach ($request->fetchAll() as $casting) { ?>
+            <div class="vignette-film">
+                <span><?= $casting["firstname"] ?></span>
+                <span><?= $casting["lastname"] ?></span>
+                <span><?= $casting["role_name"] ?></span>
+                <span><?= $casting["movie_name"] ?></span>
+            </div>
+        <?php } ?>
+    </tbody>
+</table>
 
 <?php
 

@@ -1,29 +1,58 @@
-*{
+* {
     margin: 0;
     padding: 0;
     color: black;
-    font-family: 'Poppins', sans-serif;
-    background-color: rgb(238, 238, 238);
-}
-
-.vignette-film{
+    font-family: "Poppins", sans-serif;
+  }
+  :root {
+    --main-color: gray;
+    --light-gray: rgb(238, 238, 238);
+  }
+  /* index : NAVBAR */
+  nav {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: var(--main-color);
+    height: 100px;
+  }
+  /* Style du logo */
+  /* seulement les enfants directs " > " alors que " " = TOUT */
+  nav > a {
+    position: absolute;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  nav img {
+    height: 80px;
+    padding: 5px;
+  }
+  
+  nav ul {
+    padding: 50px 0px 0px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+  }
+  nav ul li {
+    background-color: var(--light-gray);
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    border-radius: 3px 5px 0px 0px;
+    list-style: none;
+  }
+  nav ul li a {
+    text-decoration: none;
+  }
+  
+  /* view : listFilms */
+  .vignette-film {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 20px;
-}
-nav ul {
-    display: flex;
-    justify-content: space-around;
-    background-color: grey;
-    padding: 50px 0px 0px 0px;
-}
-nav ul li {
-    background-color: rgb(238, 238, 238);
-    list-style:none;
-    padding: 10px;
-}
-
-nav ul li a{
-    text-decoration: none;
-}
+  }
+  

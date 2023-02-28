@@ -20,8 +20,8 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 
 <?php
 
-$title = "Liste des films";
-$secondary_title = "Liste des films";
+$title = "Liste des genres";
+$secondary_title = "Liste des genres";
 $content = ob_get_clean();
 
 // Le require de fin permet d'injecter le contenu dans le template "squelette"  > template.php

@@ -17,7 +17,7 @@ ob_start();
     </thead>
     <tbody>
         <?php
-        foreach ($request->fetchAll() as $actor) { ?>
+        foreach ($request->fetchAll() as $movie) { ?>
             <tr>
                 <td><?= $movie["name"] ?></td>
                 <td><? $movie["genre_id"] ?></td>
