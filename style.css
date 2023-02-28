@@ -48,11 +48,106 @@
     text-decoration: none;
   }
   
-  /* view : listFilms */
-  .vignette-film {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 20px;
+  /* -------------------------------------view : listFilms------------------------------------- */
+/* Container styles */
+.movie-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Card styles */
+/* Container styles */
+.movie-card-list {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+}
+
+/* Card styles */
+/* Container styles */
+.movie-card-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Card styles */
+.movie-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Title styles */
+.movie-card span:first-child {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Genre and year styles */
+.movie-card span:not(:first-child) {
+  display: block;
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+
+@media screen and (max-width: 768px) {
+  /* Change the width of the cards to 100% on smaller screens */
+  .movie-card {
+    width: 100%;
   }
+}
+/*----------------- view listActor et listDirector et listCastings --------------------------*/
+.movie-card-person {
+  width: 100%;
+  max-width: 600px;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.movie-card-person:hover {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Title styles */
+.movie-card-person span:nth-child(-n+2) {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Genre and year styles */
+.movie-card-person span:not(:nth-child(-n+2)) {
+  display: block;
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  /* Change the width of the cards to 100% on smaller screens */
+  .movie-card-person {
+    width: 100%;
+  }
+}
+
   

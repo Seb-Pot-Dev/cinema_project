@@ -7,18 +7,16 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
     ?>
     <p> Il y a <?= $request->rowCount() ?> films</p>
 
-    <table>
-        <tbody>
+            <div class="movie-card-list">
             <?php
             foreach ($request->fetchAll() as $movie) { ?>
-                <div class="vignette-film">
-                    <span><?= $movie["movie_name"] ?></span>
-                    <span><?= $movie["genre_name"] ?></span>
-                    <span><?= $movie["release_year"] ?></span>
+                    <div class="movie-card">
+                        <span><?= $movie["movie_name"] ?></span>
+                        <span><?= $movie["genre_name"] ?></span>
+                        <span><?= $movie["release_year"] ?></span>
+                    </div>
+                    <?php } ?>
                 </div>
-            <?php } ?>
-        </tbody>
-    </table>
 <?php
 
 $title = "Liste des films";

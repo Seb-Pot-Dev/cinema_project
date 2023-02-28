@@ -6,19 +6,17 @@ ob_start();
 ?>
 <p> Il y a <?= $request->rowCount() ?> castings</p>
 
-<table>
-    <tbody>
+<div class="movie-card-list">
         <?php
         foreach ($request->fetchAll() as $casting) { ?>
-            <div class="vignette-film">
+            <div class="movie-card-person">
                 <span><?= $casting["firstname"] ?></span>
                 <span><?= $casting["lastname"] ?></span>
                 <span><?= $casting["role_name"] ?></span>
                 <span><?= $casting["movie_name"] ?></span>
             </div>
         <?php } ?>
-    </tbody>
-</table>
+</div>
 
 <?php
 

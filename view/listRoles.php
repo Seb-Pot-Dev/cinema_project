@@ -7,16 +7,14 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
     ?>
     <p> Il y a <?= $request->rowCount() ?> roles</p>
 
-    <table>
-        <tbody>
+    <div class="movie-card-list">
             <?php
             foreach ($request->fetchAll() as $role) { ?>
-                <div class="vignette-film">
+                <div class="movie-card">
                     <span><?= $role["role_name"] ?></span>
                 </div>
             <?php } ?>
-        </tbody>
-    </table>
+    </div>
 
 <?php
 

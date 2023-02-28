@@ -7,26 +7,18 @@ ob_start();
 <p> Il y a <?= $request->rowCount() ?> réalisateurs</p>
 
 <table>
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Sexe</th>
-            <th>Date de naissance</th>
-        </tr>
-    </thead>
-    <tbody>
+    
+    <div class="movie-card-list">
         <?php
         foreach ($request->fetchAll() as $director) { ?>
-            <tr>
-                <td><?= $director["lastname"] ?></td>
-                <td><? $director["firstname"] ?></td>
-                <td><? $director["sexe"] ?></td>
-                <td><? $director["birthdate"] ?></td>
-            </tr>
+            <div class="movie-card-person">
+                <span><?= $director["lastname"] ?></span>
+                <span><? $director["firstname"] ?></span>
+                <span><? $director["sexe"] ?></span>
+                <span><? $director["birthdate"] ?></span>
+            </div>
         <?php } ?>
-    </tbody>
-</table>
+        </div>
 
 <?php
 
