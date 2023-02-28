@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,7 +27,7 @@
                 <li><a href="index.php?action=listCastings">Castings</a></li>
             </ul>
         </nav>
-    </header>
+    </header> -->
 
     <?php
 
