@@ -6,27 +6,16 @@ ob_start();
 ?>
 <p> Il y a <?= $request->rowCount() ?> acteurs</p>
 
-<table>
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Sexe</th>
-            <th>Date de naissance</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="movie-card-list">
         <?php
         foreach ($request->fetchAll() as $actor) { ?>
-            <tr>
-                <td><?= $actor["lastname"] ?></td>
-                <td><? $actor["firstname"] ?></td>
-                <td><? $actor["sexe"] ?></td>
-                <td><? $actor["birthdate"] ?></td>
-            </tr>
+            <div class="movie-card-person">
+                <span><?= $actor["lastname"]." ".$actor["firstname"] ?></span>
+                <span><?= $actor["birthdate"] ?></span>
+                <span><?= $actor["sexe"] ?></span>
+        </div>
         <?php } ?>
-    </tbody>
-</table>
+        </div>
 
 <?php
 

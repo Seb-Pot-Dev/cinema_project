@@ -12,10 +12,9 @@ ob_start();
         <?php
         foreach ($request->fetchAll() as $director) { ?>
             <div class="movie-card-person">
-                <span><?= $director["lastname"] ?></span>
-                <span><? $director["firstname"] ?></span>
-                <span><? $director["sexe"] ?></span>
-                <span><? $director["birthdate"] ?></span>
+                <span><?= $director["firstname"]." ".$director["lastname"] ?></span>
+                <span><?= $director["birthdate"] ?></span>
+                <span><?= $director["sexe"] ?></span>
             </div>
         <?php } ?>
         </div>

@@ -11,7 +11,7 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
             <?php
             foreach ($request->fetchAll() as $genre) { ?>
                 <div class="movie-card">
-                    <span><?= $genre["genre_name"] ?></span>
+                    <span><?= ucfirst($genre["genre_name"]) ?></span>
                 </div>
             <?php } ?>
             </div>

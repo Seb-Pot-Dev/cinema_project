@@ -65,10 +65,12 @@ class CinemaController
     public function listRoles()
     {
         $pdo = Connect::connectToDb();
-        $request = $pdo->query("
-    SELECT role_name
-    FROM role 
-    ");
+        $request = $pdo->query("SELECT role_name, actor.firstname, actor.lastname, movie.movie_name
+        FROM role  
+        INNER JOIN casting ON role.id_role = casting.role_id
+        INNER JOIN actor ON actor.id_actor = casting.actor_id
+        INNER JOIN movie ON casting.movie_id = movie.id_movie"
+        );
 
         require "view/listRoles.php";
     }

@@ -10,8 +10,7 @@ ob_start();
         <?php
         foreach ($request->fetchAll() as $casting) { ?>
             <div class="movie-card-person">
-                <span><?= $casting["firstname"] ?></span>
-                <span><?= $casting["lastname"] ?></span>
+                <span><?= $casting["firstname"]." ".$casting["lastname"] ?></span>
                 <span><?= $casting["role_name"] ?></span>
                 <span><?= $casting["movie_name"] ?></span>
             </div>
