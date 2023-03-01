@@ -18,6 +18,7 @@ class CinemaController
         SELECT id_movie, movie_name, release_year, genre_name
         FROM movie
         INNER JOIN genre ON genre.id_genre = movie.genre_id
+		ORDER BY release_year DESC
     ");
 		//on relie par un require la vue qui nous intéresse (située dans le dossier "view")
 		require "view/listMovies.php";
@@ -124,8 +125,6 @@ class CinemaController
 		// a la variable passée en argument de la fn detailsMovie
 		$request_casting->execute(["id_movie" => $id_movie]);
 
-
-
 		require "view/detailsMovie.php";
 	}
 
@@ -141,13 +140,20 @@ class CinemaController
 
 		require "view/detailsActor.php";
 	}
+	
+	public function detailsGenre($id_genre)
+	{
+		
+		$pdo = Connect::connectToDb();
+		$genre_name = "$id_genre";
+		$request = $pdo->prepare("SELECT m.movie_name, m.release_year, DATE_FORMAT(m.movie_length, '%H:%i') AS movie_length, m.genre_id, genre_name
+		FROM movie m 
+		INNER JOIN genre g ON g.id_genre = m.genre_id
+		WHERE g.id_genre = :id_genre
+		ORDER BY release_year DESC
+		");
+		$request->execute(["id_genre" => $id_genre]);
+
+		require "view/detailsGenre.php";
+	}
 }
-
-	// public function detailsGenre($id_genre)
-	// {
-	// 	$pdo = Connect::connectToDb();
-	// 	$genre_name = "$id_genre";
-	// 	$request = $pdo->prepare("
-
-	// 	"
-	// }

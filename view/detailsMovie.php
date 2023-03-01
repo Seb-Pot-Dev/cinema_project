@@ -20,7 +20,7 @@ $movie = $request_film->fetch();
 			
 			<!-- boucle foreach afin d'afficher les acteurs du film -->
 			<?php foreach($request_casting->fetchAll() as $casting){ ?>
-			<span> - <?= $casting["firstname"]." ". $casting["lastname"]." dans le role de ".$casting["role_name"] ?></span>
+				<span> - <?= $casting["firstname"]." ". $casting["lastname"]." dans le role de ".$casting["role_name"] ?></span>
 			<?php } }
 			// si le film ne possède pas d'acteurs alors :
 			else{ ?>
