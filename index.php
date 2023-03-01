@@ -29,49 +29,52 @@
         </nav>
     </header> -->
 
-    <?php
+<?php
 
-    use Controller\CinemaController;
+use Controller\CinemaController;
 
-    spl_autoload_register(function ($class_name) {
-        include $class_name . '.php';
-    });
+spl_autoload_register(function ($class_name) {
+	include $class_name . '.php';
+});
 
-    $ctrlCinema = new CinemaController();
+$ctrlCinema = new CinemaController();
 
-    if (isset($_GET["action"])) {
-        switch ($_GET["action"]) {
-            case "listMovies":
-                $ctrlCinema->listMovies();
-                break;
-            case "listActors":
-                $ctrlCinema->listActors();
-                break;
-            case "listGenres":
-                $ctrlCinema->listGenres();
-                break;
-            case "listRoles":
-                $ctrlCinema->listRoles();
-                break;
-            case "listDirectors":
-                $ctrlCinema->listDirectors();
-                break;
-            case "detailsMovie":
-                $ctrlCinema->detailsMovie($id_movie);
-                break;
-            case "listCastings":
-                $ctrlCinema->listCastings();
-                break;
-        }
-    }
-    else {
-        $ctrlCinema->listMovies();
-    }
-    
+if (isset($_GET["id"])) {
+	$id = $_GET["id"];
+}
 
-    // APRES  LA PAUSE MIDI FAIRE LA PAGE INDEX POUR QUE LES CASE TYPE DETAILS MO
-    // DETAILS MOVIE RENVOIE AU ID CORRESPONDANT
-    ?>
+if (isset($_GET["action"])) {
+	switch ($_GET["action"]) {
+		case "listMovies":
+			$ctrlCinema->listMovies();
+			break;
+		case "listActors":
+			$ctrlCinema->listActors();
+			break;
+		case "listGenres":
+			$ctrlCinema->listGenres();
+			break;
+		case "listRoles":
+			$ctrlCinema->listRoles();
+			break;
+		case "listDirectors":
+			$ctrlCinema->listDirectors();
+			break;
+		case "detailsMovie":
+			$ctrlCinema->detailsMovie($id);
+			break;
+		case "listCastings":
+			$ctrlCinema->listCastings();
+			break;
+	}
+} else {
+	$ctrlCinema->listMovies();
+}
+
+
+// APRES  LA PAUSE MIDI FAIRE LA PAGE INDEX POUR QUE LES CASE TYPE DETAILS MO
+// DETAILS MOVIE RENVOIE AU ID CORRESPONDANT
+?>
 <!-- </body>
 
 </html> -->

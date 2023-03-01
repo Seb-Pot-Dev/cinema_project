@@ -3,30 +3,34 @@
 On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation de sortie) pour stocker le contenu dans une variable $contenu
 */
 ob_start();
+$movie = $request_film->fetch();
 ?>
-<p><?= $title?></p>
+<a href="index.php?action=listMovies" class="button">Retour</a>
+<div class="movie-card-list">
+		<div class="movie-card-detail">
+			<span><?= $movie["movie_name"] ?></span>
+			<span>Un film de <?= $movie["dir_firstname"]." ".$movie["dir_lastname"] ?></span>
+			<span>Genre : <?= ucfirst($movie["genre_name"]) ?></span>
+			<span>Année de parution : <?= $movie["release_year"] ?></span>
 
-<table>
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Genre</th>
-            <th>Date de parution</th>
-            <th>Synopsis</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        foreach ($request->fetchAll() as $movie) { ?>
-            <tr>
-                <td><?= $movie["name"] ?></td>
-                <td><? $movie["genre_id"] ?></td>
-                <td><? $movie["release_date"] ?></td>
-                <td><? $movie["synopsis"] ?></td>
-            </tr>
-        <?php } ?>
-    </tbody>
-</table>
+			<?php 
+			// condition pour vérifier si le film possède des acteurs :
+			if($request_casting->rowCount()>0){ ?>
+			<span>Il y a <?php echo $request_casting->rowCount() ?> acteurs dans ce film : </span>
+			
+			<!-- boucle foreach afin d'afficher les acteurs du film -->
+			<?php foreach($request_casting->fetchAll() as $casting){ ?>
+			<span> - <?= $casting["firstname"]." ". $casting["lastname"]." dans le role de ".$casting["role_name"] ?></span>
+			<?php } }
+			// si le film ne possède pas d'acteurs alors :
+			else{ ?>
+			<span class="error">Ce film ne possède pas d'acteurs.</span>
+			<?php };?>
+
+
+		</div>
+</div>
+
 
 <?php
 

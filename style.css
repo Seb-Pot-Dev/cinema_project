@@ -44,25 +44,11 @@
     border-radius: 3px 5px 0px 0px;
     list-style: none;
   }
-  nav ul li a {
+  a {
     text-decoration: none;
   }
   
   /* -------------------------------------view : listFilms------------------------------------- */
-/* Container styles */
-.movie-card-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Card styles */
-/* Container styles */
-.movie-card-list {
-  display: flex;
-  flex-wrap:wrap;
-  justify-content: center;
-}
 
 /* Card styles */
 /* Container styles */
@@ -148,6 +134,51 @@
   .movie-card-person {
     width: 100%;
   }
+}
+
+/*--------- DETAIL VIEW ----------------- */ 
+.movie-card-detail {
+	width: 100%;
+	max-width: 600px;
+	margin: 10px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	transition: box-shadow 0.3s ease;
+  }
+  
+  .movie-card-detail:hover {
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Title styles */
+  .movie-card-detail span:first-child {
+	display: block;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 10px;
+  }
+  
+  /* Genre and year styles */
+  .movie-card-detail span:not(:first-child) {
+	display: block;
+	font-size: 18px;
+	color: #666;
+	margin-bottom: 5px;
+  }
+/*--------- BOUTONS / MESSAGES / ERREURS ----------------- */ 
+
+.button {
+	background-color: lightcoral;
+	border-radius: 3px;
+	padding: 5px;
+}
+.button:hover {
+	background-color: rgb(251, 84, 84);
+	border-radius: 3px;
+	padding: 5px;
+
 }
 
   
