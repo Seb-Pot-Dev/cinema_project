@@ -15,7 +15,7 @@ class CinemaController
 		// on effectue la requette de notre choix
 
 		$request = $pdo->query("
-        SELECT id_movie, movie_name, release_year, genre_name, DATE_FORMAT(movie_length, '%H:%i') AS movie_length
+        SELECT id_movie, movie_name, release_year, genre_name, DATE_FORMAT(movie_length, '%H:%i') AS movie_length, url_img
         FROM movie
         INNER JOIN genre ON genre.id_genre = movie.genre_id
 		ORDER BY release_year DESC

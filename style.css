@@ -97,7 +97,11 @@
   margin-bottom: 10px;
   color: black;
 }
-
+/* PROBLEMES ICI 
+.img-film{
+  max-width: 100px;
+  height: auto;
+} */
 
 
 /*----------------- view listActor et listDirector et listCastings --------------------------*/

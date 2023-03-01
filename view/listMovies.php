@@ -15,6 +15,7 @@ ob_start();
 				<span class="release-date"><?= $movie["release_year"] ?></span>
 				<span><?= ucfirst($movie["genre_name"]) ?></span>
 				<span ><?= $movie["movie_length"] ?></span>
+				<img class="img-film" src="<?= $movie["url_img"]?>" alt="affiche du film <?=$movie["movie_name"]?>">
 			</div>
 		</a>
 	<?php } ?>
