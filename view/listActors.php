@@ -9,11 +9,13 @@ ob_start();
 <div class="movie-card-list">
         <?php
         foreach ($request->fetchAll() as $actor) { ?>
-            <div class="movie-card-person">
-                <span><?= $actor["lastname"]." ".$actor["firstname"] ?></span>
-                <span><?= $actor["birthdate"] ?></span>
-                <span><?= $actor["sexe"] ?></span>
-        </div>
+                        <div class="movie-card-person">
+                                <a href="index.php?action=detailsActor&id=<?= $actor["id_actor"] ?>">
+                                        <span><?= ucfirst($actor["lastname"])." ".ucfirst($actor["firstname"]) ?></span>
+                                        <span><?= $actor["birthdate"] ?></span>
+                                        <span><?= $actor["sexe"] ?></span>
+                        </div>
+                                </a>
         <?php } ?>
         </div>
 

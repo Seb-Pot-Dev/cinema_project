@@ -5,17 +5,17 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 ob_start(); 
 ?>
 			<!-- boucle foreach afin d'afficher les films d'un genre -->
-<a href="index.php?action=listGenres" class="button">Retour</a>
+<a href="index.php?action=listDirectors" class="button">Retour</a>
 	<div class="movie-card-list">
 		<?php 
 			if($request->rowCount()>0){
-				foreach($request->fetchAll() as $genre){ ?>
+				foreach($request->fetchAll() as $director){ ?>
 					<div class="movie-card-detail-simple-list">
-				<span> - <?= $genre["movie_name"]." ". $genre["release_year"]." ".$genre["movie_length"] ?> </span>
+				<span> - <?= $director["movie_name"]." ". $director["release_year"]." ".$director["movie_length"] ?> </span>
 				</div>
 			<?php }}
 			else{ ?>
-				<span class="error">Ce film ne possède pas d'acteurs.</span>
+				<span class="error">Ce réalisateur n'as pas encore réalisé de film (AH).</span>
 			<?php
 			} ?>
 </div>
@@ -23,8 +23,10 @@ ob_start();
 
 <?php
 
-$title = 'Tout les films du genre « '.ucfirst($genre["genre_name"])." »";
-$secondary_title = 'Tout les films du genre «'.ucfirst($genre["genre_name"])."»";
+$title = 'Tout les films réalisés par « '.ucfirst($director["firstname"])." ".ucfirst($director["lastname"])." »";
+$secondary_title = 'Tout les films réalisés par « '.ucfirst($director["firstname"])." ".ucfirst($director["lastname"])." »";
+
+
 $content = ob_get_clean();
 
 // Le require de fin permet d'injecter le contenu dans le template "squelette"  > template.php

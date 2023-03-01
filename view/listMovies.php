@@ -9,14 +9,14 @@ ob_start();
 <div class="movie-card-list">
 	<?php
 	foreach ($request->fetchAll() as $movie) { ?>
-	<a href="index.php?action=detailsMovie&id=<?= $movie["id_movie"] ?>">
-		<div class="movie-card">
-			<span><?= $movie["movie_name"] ?></span>
-			<span><?= ucfirst($movie["genre_name"]) ?></span>
-			<span><?= $movie["release_year"] ?></span>
-			<a href="index.php?action=detailsMovie&id=<?= $movie["id_movie"] ?>">Voir +</a>
-		</div>
-	</a>
+		<a href="index.php?action=detailsMovie&id=<?= $movie["id_movie"] ?>">
+			<div class="movie-card">
+				<span><?= $movie["movie_name"] ?></span>
+				<span class="release-date"><?= $movie["release_year"] ?></span>
+				<span><?= ucfirst($movie["genre_name"]) ?></span>
+				<span ><?= $movie["movie_length"] ?></span>
+			</div>
+		</a>
 	<?php } ?>
 </div>
 <?php

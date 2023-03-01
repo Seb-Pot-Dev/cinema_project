@@ -12,11 +12,14 @@ ob_start();
         <?php
         foreach ($request->fetchAll() as $director) { ?>
             <div class="movie-card-person">
-                <span><?= $director["firstname"]." ".$director["lastname"] ?></span>
-                <span><?= $director["birthdate"] ?></span>
-                <span><?= $director["sexe"] ?></span>
+                <a href="index.php?action=detailsDirector&id=<?= $director["id_director"] ?>">
+                    <span><?= $director["firstname"]." ".$director["lastname"] ?></span>
+                    <span><?= $director["birthdate"] ?></span>
+                    <span><?= $director["sexe"] ?></span>
+                </a>
             </div>
-        <?php } ?>
+        <?php //Mettre les dates en jour/mois/année /!\
+    } ?>
         </div>
 
 <?php

@@ -50,8 +50,8 @@
   
   /* -------------------------------------view : listFilms------------------------------------- */
 
-/* Card styles */
-/* Container styles */
+/* 
+/* Card container styles */
 .movie-card-list {
   display: flex;
   flex-direction: column;
@@ -60,21 +60,22 @@
 
 /* Card styles */
 .movie-card {
-  width: 100%;
-  max-width: 600px;
+  width: 600px;
   margin: 10px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .movie-card:hover {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Title styles */
+/* Title styles */ 
 .movie-card span:first-child {
   display: block;
   font-size: 24px;
@@ -82,7 +83,6 @@
   margin-bottom: 10px;
 }
 
-/* Genre and year styles */
 .movie-card span:not(:first-child) {
   display: block;
   font-size: 18px;
@@ -90,13 +90,16 @@
   margin-bottom: 5px;
 }
 
-
-@media screen and (max-width: 768px) {
-  /* Change the width of the cards to 100% on smaller screens */
-  .movie-card {
-    width: 100%;
-  }
+.release-date{
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: black;
 }
+
+
+
 /*----------------- view listActor et listDirector et listCastings --------------------------*/
 .movie-card-person {
   width: 100%;
@@ -129,12 +132,7 @@
   margin-bottom: 5px;
 }
 
-@media screen and (max-width: 768px) {
-  /* Change the width of the cards to 100% on smaller screens */
-  .movie-card-person {
-    width: 100%;
-  }
-}
+
 
 /*--------- DETAIL VIEW ----------------- */ 
 .movie-card-detail {
