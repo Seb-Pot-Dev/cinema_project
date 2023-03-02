@@ -10,9 +10,9 @@ ob_start();
         <?php
         foreach ($request->fetchAll() as $casting) { ?>
             <div class="movie-card-person">
-                <span><?= $casting["firstname"]." ".$casting["lastname"] ?></span>
+                <span><a href="index.php?action=detailsActor&id=<?=$casting['id_actor']?>"><?= $casting["firstname"]." ".$casting["lastname"] ?></a></span>
                 <span><?= $casting["role_name"] ?></span>
-                <span><?= $casting["movie_name"] ?></span>
+                <span><a href="index.php?action=detailsMovie&id=<?=$casting['id_movie']?>"><?= $casting["movie_name"] ?></a></span>
             </div>
         <?php } ?>
 </div>

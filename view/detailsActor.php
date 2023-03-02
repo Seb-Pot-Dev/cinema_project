@@ -4,30 +4,30 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 */
 ob_start(); 
 ?>
-			<!-- boucle foreach afin d'afficher les films d'un genre -->
+			<!-- boucle foreach afin d'afficher les films d'un acteur -->
 <a href="index.php?action=listActors" class="button"><i class="fa-solid fa-arrow-left"></i>Retour</a>
 	<div class="movie-card-list">
 		
-		<div class="movie-card-detail-simple-list">
+		<div class="movie-card-detail">
 		<?php 
 			if(isset($request_actor_infos)){
 				$actor_infos = $request_actor_infos->fetch();
 			} ?>
-			<span><?=$actor_infos["firstname"]." ".$actor_infos["lastname"]." est né le ".$actor_infos["birthdate"]?></span>
+			<span><?=$actor_infos["firstname"]." ".$actor_infos["lastname"]." est né le ".$actor_infos["birthdate"]?><br></span>
 			<span>Il a jouer dans les films suivants : <br><br></span>
 
 			<?php 
 			if($request_actor_list_movies->rowCount()>0){
 				foreach($request_actor_list_movies->fetchAll() as $actor_movie){ ?>
-				<span> - <?= $actor_movie["movie_name"]." (". $actor_movie["release_year"].") 
-				dans le role de ".$actor_movie["role_name"]?> </span>
-				</div>
+				<span> - <a href="index.php?action=detailsMovie&id=<?=$actor_movie['id_movie']?>"><?= $actor_movie["movie_name"]."</a> (". $actor_movie["release_year"].") 
+				dans le role de ".$actor_movie["role_name"]?><br> </span>
 			<?php }}
 			else{ ?>
 				<span class="error">Cet acteur n'a jouer dans aucuns films.</span>
-			<?php
+				<?php
 			} ?>
-</div>
+			</div>
+			</div>
 
 
 <?php

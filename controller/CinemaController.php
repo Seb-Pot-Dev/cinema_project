@@ -67,7 +67,7 @@ class CinemaController
 	{
 		$pdo = Connect::connectToDb();
 		$request = $pdo->query("
-			SELECT role_name, actor.firstname, actor.lastname, movie.movie_name, id_role
+			SELECT role_name, actor.firstname, actor.lastname, movie.movie_name, id_role, id_movie, id_actor
 			FROM role  
 			INNER JOIN casting ON role.id_role = casting.role_id
 			INNER JOIN actor ON actor.id_actor = casting.actor_id
@@ -81,8 +81,8 @@ class CinemaController
 	{
 		$pdo = Connect::connectToDb();
 		$request = $pdo->query("
-
-			SELECT firstname, lastname, role_name, movie_name
+		
+			SELECT firstname, lastname, role_name, movie_name, id_movie, id_role, id_actor
 			FROM movie
 			INNER JOIN casting ON casting.movie_id = movie.id_movie
 			INNER JOIN role ON casting.role_id = role.id_role
@@ -101,7 +101,7 @@ class CinemaController
 		$movie_name = "$id_movie";
 		// on prépare la requete et on l'execute dans un second temps pour éviter l'injection SQL (faille de sécu)
 		$request_film = $pdo->prepare("
-			SELECT movie_name, release_year, DATE_FORMAT(movie_length, '%H:%i') AS movie_length, synopsis, genre_name, d.firstname AS dir_firstname, d.lastname AS dir_lastname, note, url_img
+			SELECT movie_name, release_year, DATE_FORMAT(movie_length, '%H:%i') AS movie_length, synopsis, genre_name, d.firstname AS dir_firstname, d.lastname AS dir_lastname, note, url_img, id_director
 			FROM movie m
 			INNER JOIN director d ON m.director_id = d.id_director
 			INNER JOIN genre g ON g.id_genre = m.genre_id
@@ -114,7 +114,7 @@ class CinemaController
 
 		// --------------- REQUETE POUR LA LISTE DES ACTEURS DU FILM ---------------- //
 		$request_casting = $pdo->prepare("
-			SELECT firstname, lastname, role_name
+			SELECT firstname, lastname, role_name, a.id_actor
 			FROM actor a
 			INNER JOIN casting c ON c.actor_id = a.id_actor
 			INNER JOIN role r ON r.id_role = c.role_id
@@ -152,7 +152,7 @@ class CinemaController
 		$actor_name = "$id_actor";
 
 		$request_actor_list_movies = $pdo->prepare("
-			SELECT a.id_actor, a.firstname, a.lastname, m.movie_name, m.release_year, m.movie_length, r.role_name
+			SELECT a.id_actor, a.firstname, a.lastname, m.movie_name, m.release_year, m.movie_length, r.role_name, m.id_movie
 			FROM actor a
 			INNER JOIN casting c ON c.actor_id = a.id_actor
 			INNER JOIN movie m ON m.id_movie = c.movie_id
@@ -173,7 +173,7 @@ class CinemaController
 		$pdo = Connect::connectToDb();
 		$genre_name = "$id_genre";
 		$request = $pdo->prepare("
-			SELECT m.movie_name, m.release_year, DATE_FORMAT(m.movie_length, '%H:%i') AS movie_length, m.genre_id, genre_name
+			SELECT m.movie_name, m.release_year, DATE_FORMAT(m.movie_length, '%H:%i') AS movie_length, m.genre_id, genre_name, m.id_movie
 			FROM movie m 
 			INNER JOIN genre g ON g.id_genre = m.genre_id
 			WHERE g.id_genre = :id_genre
@@ -186,12 +186,13 @@ class CinemaController
 
 	public function detailsDirector($id_director)
 	{
+	// request pour afficher les infos du réalisateur
 		$pdo = Connect::connectToDb();
 
 		$director_name = "$id_director";
 
 		$request = $pdo->prepare("
-			SELECT DISTINCT d.id_director, d.firstname, d.lastname, movie_name, m.id_movie, m.release_year, m.movie_length
+			SELECT DISTINCT d.id_director, d.firstname, d.lastname, movie_name, m.id_movie, m.release_year, m.movie_length, d.birthdate
 			FROM director d
 			INNER JOIN movie m ON m.director_id = d.id_director
 			INNER JOIN casting c ON c.movie_id = m.id_movie
@@ -200,7 +201,25 @@ class CinemaController
 
 		$request->execute(["id_director" => $id_director]);
 
-		require "view/detailsdirector.php";
+		
 
+	// request pour afficher la liste des films du réalisateur
+
+	$pdo = Connect::connectToDb();
+
+		$director_name = "$id_director";
+
+		$request_director_list_movies = $pdo->prepare("
+		SELECT d.id_director, m.movie_name, m.id_movie, m.release_year, m.movie_length
+		FROM director d
+		INNER JOIN movie m ON m.director_id = d.id_director
+		WHERE d.id_director = :id_director
+
+		");
+
+		$request_director_list_movies->execute(["id_director" => $id_director]);
+
+
+		require "view/detailsdirector.php";
 	}
 }

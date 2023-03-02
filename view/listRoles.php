@@ -12,8 +12,8 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
             foreach ($request->fetchAll() as $role) { ?>
                 <div class="movie-card">
                     <span><?= $role["role_name"] ?></span>
-                    <span><?= $role["firstname"]." ".$role["lastname"]?></span>
-                    <span><?= $role["movie_name"] ?></span>
+                    <span><a href="index.php?action=detailsActor&id=<?=$role['id_actor']?>"><?= $role["firstname"]." ".$role["lastname"]?></a></span>
+                    <span><a href="index.php?action=detailsMovie&id=<?=$role['id_movie']?>"><?= $role["movie_name"] ?></a></span>
                 </div>
             <?php } ?>
     </div>

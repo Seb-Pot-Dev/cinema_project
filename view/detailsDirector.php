@@ -4,27 +4,36 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 */
 ob_start(); 
 ?>
-			<!-- boucle foreach afin d'afficher les films d'un genre -->
-<a href="index.php?action=listDirectors" class="button"><i class="fa-solid fa-arrow-left"></i>Retour</a>
+			<!-- boucle foreach afin d'afficher les films d'un réalisateur -->
+			<a href="index.php?action=listDirectors" class="button"><i class="fa-solid fa-arrow-left"></i>Retour</a>
 	<div class="movie-card-list">
+		
+		<div class="movie-card-detail">
 		<?php 
-			if($request->rowCount()>0){
-				foreach($request->fetchAll() as $director){ ?>
-					<div class="movie-card-detail-simple-list">
-				<span> - <?= $director["movie_name"]." ". $director["release_year"]." ".$director["movie_length"] ?> </span>
-				</div>
+			if(isset($request)){
+				$director_infos = $request->fetch();
+			} ?>
+			<span><?=$director_infos["firstname"]." ".$director_infos["lastname"]." est né le ".$director_infos["birthdate"]?><br></span>
+			<span>Il a réaliser les films suivants : <br><br></span>
+
+			<?php 
+			if($request_director_list_movies->rowCount()>0){
+				foreach($request_director_list_movies->fetchAll() as $director_movie){ ?>
+				<span> - <a href="index.php?action=detailsMovie&id=<?=$director_movie['id_movie']?>"><?= $director_movie["movie_name"]." (". $director_movie["release_year"].")</a> 
+				 "?><br> </span>
 			<?php }}
 			else{ ?>
-				<span class="error">Ce réalisateur n'as pas encore réalisé de film (AH).</span>
-			<?php
+				<span class="error">Cet acteur n'a jouer dans aucuns films.</span>
+				<?php
 			} ?>
-</div>
+			</div>
+			</div>
 
 
 <?php
 
-$title = 'Tout les films réalisés par « '.ucfirst($director["firstname"])." ".ucfirst($director["lastname"])." »";
-$secondary_title = 'Tout les films réalisés par « '.ucfirst($director["firstname"])." ".ucfirst($director["lastname"])." »";
+$title = 'Tout les films réalisés par « '.ucfirst($director_infos["firstname"])." ".ucfirst($director_infos["lastname"])." »";
+$secondary_title = 'Tout les films réalisés par « '.ucfirst($director_infos["firstname"])." ".ucfirst($director_infos["lastname"])." »";
 
 
 $content = ob_get_clean();

@@ -10,7 +10,7 @@ $movie = $request_film->fetch();
     <div class="movie-card-infos">
 		<div class="movie-card-detail">
 			<span><?= $movie["movie_name"] ?></span>
-			<span>Un film de <?= $movie["dir_firstname"]." ".$movie["dir_lastname"] ?></span>
+			<span>Un film de <a href="index.php?action=detailsDirector&id=<?=$movie['id_director']?>"><?= $movie["dir_firstname"]." ".$movie["dir_lastname"]?></a></span>
 			<span>Genre : <?= ucfirst($movie["genre_name"]) ?></span>
 			<span>Année de parution : <?= $movie["release_year"] ?></span>
 			<span>Durée du film : <?= $movie["movie_length"] ?></span>
@@ -26,7 +26,7 @@ $movie = $request_film->fetch();
 			
 			<!-- boucle foreach afin d'afficher les acteurs du film -->
 			<?php foreach($request_casting->fetchAll() as $casting){ ?>
-				<span> - <?= $casting["firstname"]." ". $casting["lastname"]." dans le role de ".$casting["role_name"] ?></span>
+				<span> - <a href="index.php?action=detailsActor&id=<?=$casting['id_actor']?>"><?=$casting["firstname"]." ". $casting["lastname"]."</a> dans le role de ".$casting["role_name"] ?></span>
 			<?php } }
 			// si le film ne possède pas d'acteurs alors :
 			else{ ?>

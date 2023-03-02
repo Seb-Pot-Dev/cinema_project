@@ -11,7 +11,7 @@ ob_start();
 			if($request->rowCount()>0){
 				foreach($request->fetchAll() as $genre){ ?>
 					<div class="movie-card-detail-simple-list">
-				<span> - <?= $genre["movie_name"]." ". $genre["release_year"]." ".$genre["movie_length"] ?> </span>
+				<span> - <a href="index.php?action=detailsMovie&id=<?=$genre['id_movie']?>"><?= $genre["movie_name"]." ". $genre["release_year"]."</a> ".$genre["movie_length"] ?> </span>
 				</div>
 			<?php }}
 			else{ ?>
