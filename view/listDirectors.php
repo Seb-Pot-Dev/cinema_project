@@ -4,7 +4,7 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 */
 ob_start();
 ?>
-<p> Il y a <?= $request->rowCount() ?> réalisateurs</p>
+<p class="row-count-list"> Il y a <?= $request->rowCount() ?> réalisateurs</p>
 
 <table>
     

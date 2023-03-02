@@ -4,7 +4,7 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 */
 ob_start();
 ?>
-<p> Il y a <?= $request->rowCount() ?> castings</p>
+<p class="row-count-list"> <?= $request->rowCount() ?> castings</p>
 
 <div class="movie-card-list">
         <?php
