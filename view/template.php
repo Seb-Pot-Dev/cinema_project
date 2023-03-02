@@ -12,13 +12,10 @@
 
 <body>
     <header>
-
         <nav>
-
             <a href="http://localhost/sebastien_pothee/cinema_project/index.php">
                 <img src="public/img/kisspng-popcorn-caramel-corn-free-content-cinema-clip-art-how-to-draw-popcorn-5a848b58bd54c0.6191740315186358647755.png" alt="logo de votre entreprise">
             </a>
-
             <ul>
                 <li><a href="index.php?action=listMovies">Films</a></li>
                 <li><a href="index.php?action=listGenres">Genres</a></li>

@@ -5,8 +5,9 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 ob_start();
 $movie = $request_film->fetch();
 ?>
-<a href="index.php?action=listMovies" class="button">Retour</a>
+	<a href="index.php?action=listMovies" class="button"><i class="fa-solid fa-arrow-left"></i>Retour</a>
 <div class="movie-card-list">
+    <div class="movie-card-infos">
 		<div class="movie-card-detail">
 			<span><?= $movie["movie_name"] ?></span>
 			<span>Un film de <?= $movie["dir_firstname"]." ".$movie["dir_lastname"] ?></span>
@@ -31,9 +32,9 @@ $movie = $request_film->fetch();
 			else{ ?>
 			<span class="error">Ce film ne possède pas d'acteurs.</span>
 			<?php };?>
-
-
+            <img class="img-film-big" src="<?= $movie["url_img"]?>" alt="affiche du film <?=$movie["movie_name"]?>">
 		</div>
+    </div>
 </div>
 
 

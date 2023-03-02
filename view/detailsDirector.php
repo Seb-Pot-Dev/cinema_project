@@ -5,7 +5,7 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 ob_start(); 
 ?>
 			<!-- boucle foreach afin d'afficher les films d'un genre -->
-<a href="index.php?action=listDirectors" class="button">Retour</a>
+<a href="index.php?action=listDirectors" class="button"><i class="fa-solid fa-arrow-left"></i>Retour</a>
 	<div class="movie-card-list">
 		<?php 
 			if($request->rowCount()>0){

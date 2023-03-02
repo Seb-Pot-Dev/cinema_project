@@ -5,13 +5,22 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 ob_start(); 
 ?>
 			<!-- boucle foreach afin d'afficher les films d'un genre -->
-<a href="index.php?action=listActors" class="button">Retour</a>
+<a href="index.php?action=listActors" class="button"><i class="fa-solid fa-arrow-left"></i>Retour</a>
 	<div class="movie-card-list">
+		
+		<div class="movie-card-detail-simple-list">
 		<?php 
-			if($request->rowCount()>0){
-				foreach($request->fetchAll() as $actor){ ?>
-					<div class="movie-card-detail-simple-list">
-				<span> - <?= $actor["movie_name"]." ". $actor["release_year"]." ".$actor["movie_length"] ?> </span>
+			if(isset($request_actor_infos)){
+				$actor_infos = $request_actor_infos->fetch();
+			} ?>
+			<span><?=$actor_infos["firstname"]." ".$actor_infos["lastname"]." est né le ".$actor_infos["birthdate"]?></span>
+			<span>Il a jouer dans les films suivants : <br><br></span>
+
+			<?php 
+			if($request_actor_list_movies->rowCount()>0){
+				foreach($request_actor_list_movies->fetchAll() as $actor_movie){ ?>
+				<span> - <?= $actor_movie["movie_name"]." (". $actor_movie["release_year"].") 
+				dans le role de ".$actor_movie["role_name"]?> </span>
 				</div>
 			<?php }}
 			else{ ?>
@@ -23,8 +32,8 @@ ob_start();
 
 <?php
 
-$title = 'Tout les films dans lequel « '.ucfirst($actor["firstname"])." ".ucfirst($actor["lastname"])." »";
-$secondary_title = 'Tout les films dans lequel « '.ucfirst($actor["firstname"])." ".ucfirst($actor["lastname"])." »";
+$title = 'Tout les films dans lequel « '.ucfirst($actor_movie["firstname"])." ".ucfirst($actor_movie["lastname"])." »";
+$secondary_title = 'Tout les films dans lequel « '.ucfirst($actor_movie["firstname"])." ".ucfirst($actor_movie["lastname"])." »";
 
 $content = ob_get_clean();
 

@@ -101,7 +101,7 @@ class CinemaController
 		$movie_name = "$id_movie";
 		// on prépare la requete et on l'execute dans un second temps pour éviter l'injection SQL (faille de sécu)
 		$request_film = $pdo->prepare("
-			SELECT movie_name, release_year, DATE_FORMAT(movie_length, '%H:%i') AS movie_length, synopsis, genre_name, d.firstname AS dir_firstname, d.lastname AS dir_lastname, note
+			SELECT movie_name, release_year, DATE_FORMAT(movie_length, '%H:%i') AS movie_length, synopsis, genre_name, d.firstname AS dir_firstname, d.lastname AS dir_lastname, note, url_img
 			FROM movie m
 			INNER JOIN director d ON m.director_id = d.id_director
 			INNER JOIN genre g ON g.id_genre = m.genre_id
@@ -128,22 +128,41 @@ class CinemaController
 		require "view/detailsMovie.php";
 	}
 
+
+	// Lister les infos d'un acteur particulier
 	public function detailsActor($id_actor)
 	{
+		// --------------- REQUETE POUR LES INFOS D'UN ACTEUR ------------------ //
 		$pdo = Connect::connectToDb();
 
 		$actor_name = "$id_actor";
 
-		$request = $pdo->prepare("
-			SELECT a.id_actor, a.firstname, a.lastname, m.movie_name, m.release_year, m.movie_length
-			FROM actor a
-			INNER JOIN casting c ON c.actor_id = a.id_actor
-			INNER JOIN movie m ON m.id_movie = c.movie_id
+		$request_actor_infos = $pdo->prepare("
+			SELECT a.id_actor, a.firstname, a.lastname, a.sexe, DATE_FORMAT(a.birthdate, '%d/%m/%Y') AS birthdate
+			FROM actor a 
 			WHERE a.id_actor = :id_actor
 
 		");
 
-		$request->execute(["id_actor" => $id_actor]);
+		$request_actor_infos->execute(["id_actor" => $id_actor]);
+
+		// --------------- REQUETE POUR LA LISTE DES FILMS D'UN ACTEUR ---------------- //
+		$pdo = Connect::connectToDb();
+
+		$actor_name = "$id_actor";
+
+		$request_actor_list_movies = $pdo->prepare("
+			SELECT a.id_actor, a.firstname, a.lastname, m.movie_name, m.release_year, m.movie_length, r.role_name
+			FROM actor a
+			INNER JOIN casting c ON c.actor_id = a.id_actor
+			INNER JOIN movie m ON m.id_movie = c.movie_id
+			INNER JOIN role r ON r.id_role = c.role_id
+			WHERE a.id_actor = :id_actor
+
+		");
+
+		$request_actor_list_movies->execute(["id_actor" => $id_actor]);
+
 
 		require "view/detailsActor.php";
 	}

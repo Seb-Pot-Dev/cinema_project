@@ -10,11 +10,13 @@ ob_start();
 	<?php
 	foreach ($request->fetchAll() as $movie) { ?>
 		<a href="index.php?action=detailsMovie&id=<?= $movie["id_movie"] ?>">
-			<div class="movie-card">
-				<span><?= $movie["movie_name"] ?></span>
-				<span class="release-date"><?= $movie["release_year"] ?></span>
-				<span><?= ucfirst($movie["genre_name"]) ?></span>
-				<span ><?= $movie["movie_length"] ?></span>
+				<div class="movie-card">
+					<div class="movie-card-infos">
+					<span><?= $movie["movie_name"] ?></span>
+					<span class="release-date"><?= $movie["release_year"] ?></span>
+					<span><?= ucfirst($movie["genre_name"]) ?></span>
+					<span ><?= $movie["movie_length"] ?></span>
+				</div>
 				<img class="img-film" src="<?= $movie["url_img"]?>" alt="affiche du film <?=$movie["movie_name"]?>">
 			</div>
 		</a>

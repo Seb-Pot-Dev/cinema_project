@@ -68,9 +68,13 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.movid-card-infos{
+  display: flex;
   flex-direction: column;
 }
-
 .movie-card:hover {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
@@ -97,12 +101,18 @@
   margin-bottom: 10px;
   color: black;
 }
-/* PROBLEMES ICI 
-.img-film{
-  max-width: 100px;
-  height: auto;
-} */
 
+.img-film{
+  width: 120px;
+  height: 120px;
+  object-fit:cover;
+  border-radius: 3px;
+}
+.img-film-big{
+  width: 500px;
+  height: auto;
+  object-fit: contain;
+}
 
 /*----------------- view listActor et listDirector et listCastings --------------------------*/
 .movie-card-person {
@@ -185,7 +195,7 @@
 
 /*---------- SIMPLE LIST -------------------------------*/
 
-.movie-card-detail-simple-list {
+  .movie-card-detail-simple-list {
 	width: 100%;
 	max-width: 600px;
 	margin: 10px;
