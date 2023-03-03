@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/a45e9c27c8.js" crossorigin="anonymous"></script>
     <title><?= $title ?></title>
 </head>
+
 <body>
     <main>
         <nav>
@@ -20,16 +22,20 @@
                 <li><a href="index.php?action=listDirectors">Réalisateurs</a></li>
                 <li><a href="index.php?action=listCastings">Castings</a></li>
             </ul>
-            <button type="button" class="subscribe">S'inscrire</button>
-        </nav>
-            <div>
-                <!-- <h1>Bienvenu sur Popcorn !</h1> -->
-                <h2 class="list-title"><?= $secondary_title ?></h2>
-                <?= $content ?>
+            <div class="account-access">
+                <a class="subscribe">S'inscrire</a>
+                <a class="subscribe" href="view/admin.php">Admin</a>
             </div>
+        </nav>
+        <div>
+            <!-- <h1>Bienvenu sur Popcorn !</h1> -->
+            <?php if (isset($secondary_title)) { ?>
+                <h2 class="list-title"><?= $secondary_title ?></h2>
+            <?php } ?>
+            <?= $content ?>
+        </div>
         <!-- </div> -->
-            </main>
+    </main>
 </body>
+
 </html>
-
-

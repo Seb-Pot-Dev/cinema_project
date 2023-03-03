@@ -4,28 +4,24 @@ On va donc "aspirer" tout ce qui se trouve entre ces 2 fonctions (temporisation 
 */
 ob_start(); 
 ?>
-			<!-- boucle foreach afin d'afficher les films d'un acteur -->
 <a href="index.php?action=listActors" class="button"><i class="fa-solid fa-arrow-left"></i>Retour</a>
-	<div class="movie-card-list">
-		
-		<div class="movie-card-detail">
+<div class="movie-card-list">
+	
+	<div class="movie-card-detail">
 		<?php 
 			if(isset($request_actor_infos)){
-				$actor_infos = $request_actor_infos->fetch();
-			} ?>
-			<span><?=$actor_infos["firstname"]." ".$actor_infos["lastname"]." est né le ".$actor_infos["birthdate"]?><br></span>
-			<span>Il a jouer dans les films suivants : <br><br></span>
-
-			<?php 
+				$actor_infos = $request_actor_infos->fetch();?>
+				<span><?=$actor_infos["firstname"]." ".$actor_infos["lastname"]." est né le ".$actor_infos["birthdate"]?><br></span>
+				<span>Il a jouer dans les films suivants : <br><br></span>
+				<?php } ?>
+				
+				<?php 
 			if($request_actor_list_movies->rowCount()>0){
+				//  boucle foreach afin d'afficher les films d'un acteur 
 				foreach($request_actor_list_movies->fetchAll() as $actor_movie){ ?>
 				<span> - <a href="index.php?action=detailsMovie&id=<?=$actor_movie['id_movie']?>"><?= $actor_movie["movie_name"]."</a> (". $actor_movie["release_year"].") 
 				dans le role de ".$actor_movie["role_name"]?><br> </span>
-			<?php }}
-			else{ ?>
-				<span class="error">Cet acteur n'a jouer dans aucuns films.</span>
-				<?php
-			} ?>
+			
 			</div>
 			</div>
 
@@ -34,7 +30,12 @@ ob_start();
 
 $title = 'Tout les films dans lequel « '.ucfirst($actor_movie["firstname"])." ".ucfirst($actor_movie["lastname"])." »";
 $secondary_title = 'Tout les films dans lequel « '.ucfirst($actor_movie["firstname"])." ".ucfirst($actor_movie["lastname"])." »";
+}
 
+			}else{ ?>
+				<span class="error">Cet acteur n'a jouer dans aucuns films.</span>
+				<?php
+			}
 $content = ob_get_clean();
 
 // Le require de fin permet d'injecter le contenu dans le template "squelette"  > template.php
@@ -42,3 +43,4 @@ $content = ob_get_clean();
 // Donc DANS CHAQUE VUE, il faudra toujours donner une valeur à $title, $content et $secondary_title
 
 require "view/template.php";
+ ?>
