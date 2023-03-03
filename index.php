@@ -60,8 +60,6 @@ if (isset($_GET["action"])) {
 			break;
 		case "addRole":
 			$ctrlCinema->addRole();
-			var_dump("text");
-die;
 			break;
 		case "addDirector":
 			$ctrlCinema->addDirector();

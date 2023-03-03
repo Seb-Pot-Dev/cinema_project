@@ -271,6 +271,8 @@ class CinemaController
 
 		require "view/admin_add/addActor.php";
 	}
+
+	
 	public function addRole()
 	{
 		if(isset($_POST["submit"])){
@@ -298,7 +300,7 @@ class CinemaController
 		// filter
 		// si ok alors prepare insert into values : "nom a ajouter"
 		// 
-		require "view/admin_add/addGenre.php";
+		require "view/admin_add/addRole.php";
 	}
 	
 	public function addDirector()

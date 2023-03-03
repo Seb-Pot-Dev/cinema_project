@@ -1,7 +1,5 @@
 <?php
 ob_start();
-var_dump("text");
-die;
 ?>
 <form action="index.php?action=addRole" method="post">
     <label>Nom du rôle :</label>
