@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/a45e9c27c8.js" crossorigin="anonymous"></script>
-    <title><?= $title ?></title>
+    <title><?php if (isset($title)) { ?> <?= $title ?> <?php } ?></title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
             </ul>
             <div class="account-access">
                 <a class="subscribe">S'inscrire</a>
-                <a class="subscribe" href="view/admin.php">Admin</a>
+                <a class="subscribe" href="index.php?action=admin">Admin</a>
             </div>
         </nav>
         <div>
@@ -32,7 +32,9 @@
             <?php if (isset($secondary_title)) { ?>
                 <h2 class="list-title"><?= $secondary_title ?></h2>
             <?php } ?>
-            <?= $content ?>
+            <?php if (isset($content)) { ?>
+                <?= $content ?>
+            <?php } ?>
         </div>
         <!-- </div> -->
     </main>

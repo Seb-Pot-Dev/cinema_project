@@ -166,10 +166,10 @@ class CinemaController
 
 		require "view/detailsActor.php";
 	}
-	
+
 	public function detailsGenre($id_genre)
 	{
-		
+
 		$pdo = Connect::connectToDb();
 		$genre_name = "$id_genre";
 		$request = $pdo->prepare("
@@ -186,7 +186,7 @@ class CinemaController
 
 	public function detailsDirector($id_director)
 	{
-	// request pour afficher les infos du réalisateur
+		// request pour afficher les infos du réalisateur
 		$pdo = Connect::connectToDb();
 
 		$director_name = "$id_director";
@@ -201,11 +201,11 @@ class CinemaController
 
 		$request->execute(["id_director" => $id_director]);
 
-		
 
-	// request pour afficher la liste des films du réalisateur
 
-	$pdo = Connect::connectToDb();
+		// request pour afficher la liste des films du réalisateur
+
+		$pdo = Connect::connectToDb();
 
 		$director_name = "$id_director";
 
@@ -221,5 +221,96 @@ class CinemaController
 
 
 		require "view/detailsdirector.php";
+	}
+
+	public function admin()
+	{
+		require "view/admin.php";
+	}
+
+	public function addMovie()
+	{
+		$pdo = Connect::connectToDb();
+
+		require "view/admin_add/addMovie.php";
+	}
+	public function addGenre()
+	{
+		
+		if(isset($_POST["submit"])){
+			$genre_name = $_POST["genre_name"];
+
+			$pdo = Connect::connectToDb();
+			$genre_name=filter_input(INPUT_POST, "genre_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+			
+			if($genre_name){
+				
+				
+				$stmt =$pdo->prepare("
+				INSERT INTO genre (genre_name)
+				VALUES (:genre_name)
+				");
+				
+				$stmt->execute(["genre_name"=>$genre_name]);
+
+				header('Location: index.php?action=listGenres');
+				die();
+			}
+		}
+		
+		// filter
+		// si ok alors prepare insert into values : "nom a ajouter"
+		// 
+		require "view/admin_add/addGenre.php";
+	}
+
+
+	public function addActor()
+	{
+		$pdo = Connect::connectToDb();
+
+		require "view/admin_add/addActor.php";
+	}
+	public function addRole()
+	{
+		if(isset($_POST["submit"])){
+			$role_name = $_POST["role_name"];
+			
+
+			$pdo = Connect::connectToDb();
+			$role_name=filter_input(INPUT_POST, "role_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+			
+			if($role_name){
+				
+				
+				$stmt =$pdo->prepare("
+				INSERT INTO role (role_name)
+				VALUES (:role_name)
+				");
+				
+				$stmt->execute(["role_name"=>$role_name]);
+
+				header('Location: index.php?action=listRoles');
+				die();
+			}
+		}
+		
+		// filter
+		// si ok alors prepare insert into values : "nom a ajouter"
+		// 
+		require "view/admin_add/addGenre.php";
+	}
+	
+	public function addDirector()
+	{
+		$pdo = Connect::connectToDb();
+
+		require "view/admin_add/addDirector.php";
+	}
+	public function addCasting()
+	{
+		$pdo = Connect::connectToDb();
+
+		require "view/admin_add/addCasting.php";
 	}
 }
