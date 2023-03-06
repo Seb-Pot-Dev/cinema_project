@@ -27,7 +27,10 @@ ob_start();
 // le label est associé au select car for = id
 
 // Pour le genre du film
-$AllGenres=$requestGenre->fetchAll();?>     
+
+    //définition de la variable en utilisant fetchAll sur la request
+$AllGenres=$requestGenre->fetchAll();?>    
+
     <label for="genre_id">Genre du film : </label>           
         <select name ="genre_id" id="genre_id">
             <?php foreach($AllGenres as $genre){
@@ -38,7 +41,10 @@ $AllGenres=$requestGenre->fetchAll();?>
     <?php
 
 // Pour le réalisateur du film
+    //définition de la variable en utilisant fetchAll sur la request
+
 $AllDirector=$requestDirector->fetchAll();?>  
+
     <label for="director_id">Réalisateur du film</label>
         <select name="director_id" id="director_id">
             <?php foreach($AllDirector as $director){

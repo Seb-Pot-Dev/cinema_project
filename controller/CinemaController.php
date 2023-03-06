@@ -409,6 +409,24 @@ class CinemaController
 	{
 		$pdo = Connect::connectToDb();
 
+		//LIST GENRE pour FORM SELECT
+		$requestGenre = $pdo->query("
+			SELECT genre_name, id_genre
+			FROM genre 
+		");
+		
+		//LIST ACTOR pour FORM SELECT 
+		$requestActor = $pdo->query("
+			SELECT CONCAT(firstname, ' ', lastname) AS actor_fullname, id_actor
+			FROM actor
+		");
+
+		//LIST ROLE pour FORM SELECT
+		$requestRole = $pdo->query("
+			SELECT role_name, id_role
+			FROM role
+		");
+
 		require "view/admin_add/addCasting.php";
 	}
 }
