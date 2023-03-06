@@ -27,7 +27,7 @@
     background-position: center;
 } */
 main{
-  height: 100vw;
+  
   background-color: #ededed;
 }
 nav{
@@ -278,4 +278,7 @@ p.row-count-list{
     justify-content: center;
     align-items: center;
     width: 60%;
+  }
+  form select{
+    width: 30%;
   }

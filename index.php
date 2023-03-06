@@ -67,7 +67,6 @@ if (isset($_GET["action"])) {
 		case "addCasting":
 			$ctrlCinema->addCasting();
 			break;
-		
 	}
 } else {
 	$ctrlCinema->listMovies();

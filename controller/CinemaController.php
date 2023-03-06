@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use DateTime;
 use Model\Connect;
 
 class CinemaController
@@ -67,11 +68,9 @@ class CinemaController
 	{
 		$pdo = Connect::connectToDb();
 		$request = $pdo->query("
-			SELECT role_name, actor.firstname, actor.lastname, movie.movie_name, id_role, id_movie, id_actor
+			SELECT role_name
 			FROM role  
-			INNER JOIN casting ON role.id_role = casting.role_id
-			INNER JOIN actor ON actor.id_actor = casting.actor_id
-			INNER JOIN movie ON casting.movie_id = movie.id_movie
+		
 			");
 
 		require "view/listRoles.php";
@@ -191,15 +190,13 @@ class CinemaController
 
 		$director_name = "$id_director";
 
-		$request = $pdo->prepare("
-			SELECT DISTINCT d.id_director, d.firstname, d.lastname, movie_name, m.id_movie, m.release_year, m.movie_length, d.birthdate
+		$request_director_infos = $pdo->prepare("
+			SELECT DISTINCT d.id_director, d.firstname, d.lastname, d.birthdate
 			FROM director d
-			INNER JOIN movie m ON m.director_id = d.id_director
-			INNER JOIN casting c ON c.movie_id = m.id_movie
 			WHERE d.id_director = :id_director
 		");
 
-		$request->execute(["id_director" => $id_director]);
+		$request_director_infos->execute(["id_director" => $id_director]);
 
 
 
@@ -210,7 +207,7 @@ class CinemaController
 		$director_name = "$id_director";
 
 		$request_director_list_movies = $pdo->prepare("
-		SELECT d.id_director, m.movie_name, m.id_movie, m.release_year, m.movie_length
+		SELECT  m.movie_name, m.release_year, m.movie_length, id_movie
 		FROM director d
 		INNER JOIN movie m ON m.director_id = d.id_director
 		WHERE d.id_director = :id_director
@@ -220,46 +217,73 @@ class CinemaController
 		$request_director_list_movies->execute(["id_director" => $id_director]);
 
 
-		require "view/detailsdirector.php";
+		require "view/detailsDirector.php";
 	}
-
+	
 	public function admin()
 	{
 		require "view/admin.php";
 	}
 
-	// public function addMovie()
-	// {
-	// 	if(isset($_POST["submit"])){
-	// 		$movie_name = $_POST["movie_name"];
-	// 		$release_year = $_POST["release_year"];
-	// 		$movie_length = $_POST["movie_length"];
-	// 		$synopsis = $_POST["synopsis"];
-	// 		$url_img = $_POST["url_img"];
-	// 		$note = $_POST["note"];
+	public function addMovie()
+	{
+		$pdo = Connect::connectToDb();
 
-	// 		if($movie_name, $release_year, $movie_length, $synopsis, $url_img, $note){
-	// 			$pdo = Connect::connectToDb();
-	// 			$stmt = $pdo->prepare("
-	// 			INSERT INTO movie (movie_name, release_year, movie_length, synopsis, url_img, note)
-	// 			VALUES (:movie_name, :release_year, :movie_length, :synopsis, :url_img, :note)	
+		// LIST GENRE pour FORM SELECT
+		$requestGenre = $pdo->query("
+			SELECT genre_name, id_genre
+			FROM genre 
+			");
 
-	// 			")
+		// LIST DIRECTOR pour FORM SELECT
+		$requestDirector = $pdo->query("
+		SELECT CONCAT(firstname, ' ', lastname) AS director_fullname, id_director
+		FROM director
+		");
 
-	// 		}
+
+		if(isset($_POST["submit"])){
+
+			$movie_name = $_POST["movie_name"];
+			$release_year = $_POST["release_year"];
+			$movie_length = $_POST["movie_length"];
+			$synopsis = $_POST["synopsis"];
+			$url_img = $_POST["url_img"];
+			$note = $_POST["note"];
+			$genre_id = $_POST["genre_id"];
+			$director_id=$_POST["director_id"];
+
+
+			if($movie_name && $release_year && $movie_length && $synopsis && $url_img && $note && $genre_id && $director_id){
+				$pdo = Connect::connectToDb();
+	
+				$stmt = $pdo->prepare("
+				INSERT INTO movie (movie_name, release_year, movie_length, synopsis, url_img, note, genre_id, director_id)
+				VALUES (:movie_name, :release_year, :movie_length, :synopsis, :url_img, :note, :genre_id, :director_id)	
+				");
+	
+				$stmt->execute(["movie_name"=>$movie_name, "release_year"=>$release_year, "movie_length"=>$movie_length, "synopsis"=>$synopsis, "url_img"=>$url_img, "note"=>$note, "genre_id"=>$genre_id, "director_id"=>$director_id
+				]);
+	
+				header('Location: index.php?action=listMovies');
+				die();
+			}
+		}
+		require "view/admin_add/addMovie.php";
+
 		
+	}
 
-	// }
-	// 	require "view/admin_add/addMovie.php";
-	// }
 	public function addGenre()
 	{
-		
 		if(isset($_POST["submit"])){
+			//FILTER
+			$_POST["genre_name"]=filter_input(INPUT_POST, "genre_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+			
+			//ASSOCIATION A VARIABLE
 			$genre_name = $_POST["genre_name"];
 
-			$genre_name=filter_input(INPUT_POST, "genre_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-			
+			//VERIFICATION SI DEFINI
 			if($genre_name){
 				$pdo = Connect::connectToDb();
 				
@@ -276,16 +300,42 @@ class CinemaController
 			}
 		}
 		
-		// filter
-		// si ok alors prepare insert into values : "nom a ajouter"
-		// 
 		require "view/admin_add/addGenre.php";
 	}
 
 
 	public function addActor()
 	{
-		$pdo = Connect::connectToDb();
+
+		if(isset($_POST["submit"])){
+			//FILTER
+			$_POST["birthdate"]= filter_input(INPUT_POST, "birthdate", FILTER_SANITIZE_SPECIAL_CHARS);
+			$_POST["firstname"]= filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_SPECIAL_CHARS);
+			$_POST["lastname"]= filter_input(INPUT_POST, "lastname", FILTER_SANITIZE_SPECIAL_CHARS);
+			$_POST["sexe"]= filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_SPECIAL_CHARS);
+
+			//ASSOCIATION A VARIABLE
+			$birthdate=$_POST["birthdate"];
+			$firstname=$_POST["firstname"];
+			$lastname=$_POST["lastname"];
+			$sexe=$_POST["sexe"];
+
+			if($firstname && $lastname && $sexe && $birthdate){
+
+				$pdo = Connect::connectToDb();
+
+				$stmt = $pdo->prepare("
+				INSERT INTO actor (firstname, lastname, sexe, birthdate)
+				VALUES (:firstname, :lastname, :sexe, :birthdate)
+				");
+
+				$stmt->execute(["firstname"=>$firstname, "lastname"=>$lastname, "sexe"=>$sexe, "birthdate"=>$birthdate]);
+				
+				header('location:index.php?action=listActors');
+				die();
+				}
+
+			}
 
 		require "view/admin_add/addActor.php";
 	}
@@ -294,14 +344,14 @@ class CinemaController
 	public function addRole()
 	{
 		if(isset($_POST["submit"])){
-			$role_name = $_POST["role_name"];
-			
 
-			$pdo = Connect::connectToDb();
 			$role_name=filter_input(INPUT_POST, "role_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+			
+			$role_name = $_POST["role_name"];
 			
 			if($role_name){
 				
+				$pdo = Connect::connectToDb();
 				
 				$stmt =$pdo->prepare("
 				INSERT INTO role (role_name)
@@ -315,18 +365,46 @@ class CinemaController
 			}
 		}
 		
-		// filter
-		// si ok alors prepare insert into values : "nom a ajouter"
-		// 
+
 		require "view/admin_add/addRole.php";
 	}
 	
 	public function addDirector()
 	{
-		$pdo = Connect::connectToDb();
+
+		if(isset($_POST["submit"])){
+			//FILTER
+			$_POST["birthdate"]= filter_input(INPUT_POST, "birthdate", FILTER_SANITIZE_SPECIAL_CHARS);
+			$_POST["firstname"]= filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_SPECIAL_CHARS);
+			$_POST["lastname"]= filter_input(INPUT_POST, "lastname", FILTER_SANITIZE_SPECIAL_CHARS);
+			$_POST["sexe"]= filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_SPECIAL_CHARS);
+			
+			//ASSOCIATION A VARIABLE
+			$birthdate=$_POST["birthdate"];
+			$firstname=$_POST["firstname"];
+			$lastname=$_POST["lastname"];
+			$sexe=$_POST["sexe"];
+
+			if($firstname && $lastname && $sexe && $birthdate){
+
+				$pdo = Connect::connectToDb();
+
+				$stmt = $pdo->prepare("
+				INSERT INTO director (firstname, lastname, sexe, birthdate)
+				VALUES (:firstname, :lastname, :sexe, :birthdate)
+				");
+
+				$stmt->execute(["firstname"=>$firstname, "lastname"=>$lastname, "sexe"=>$sexe, "birthdate"=>$birthdate]);
+				
+				header('location:index.php?action=listDirectors');
+				die();
+				}
+
+			}
 
 		require "view/admin_add/addDirector.php";
 	}
+
 	public function addCasting()
 	{
 		$pdo = Connect::connectToDb();

@@ -10,12 +10,12 @@ ob_start();
 		
 		<div class="movie-card-detail">
 		<?php 
-			if(isset($request)){
-				$director_infos = $request->fetch();
-			} ?>
+			if(isset($request_director_infos)){
+				$director_infos = $request_director_infos->fetch();
+			?>
 			<span><?=$director_infos["firstname"]." ".$director_infos["lastname"]." est né le ".$director_infos["birthdate"]?><br></span>
 			<span>Il a réaliser les films suivants : <br><br></span>
-
+				<?php } ?>
 			<?php 
 			if($request_director_list_movies->rowCount()>0){
 				foreach($request_director_list_movies->fetchAll() as $director_movie){ ?>
@@ -23,18 +23,15 @@ ob_start();
 				 "?><br> </span>
 			<?php }}
 			else{ ?>
-				<span class="error">Cet acteur n'a jouer dans aucuns films.</span>
+				<span class="error">Cet réalisateur n'as produit aucuns films.</span>
 				<?php
 			} ?>
 			</div>
 			</div>
-
-
 <?php
 
 $title = 'Tout les films réalisés par « '.ucfirst($director_infos["firstname"])." ".ucfirst($director_infos["lastname"])." »";
 $secondary_title = 'Tout les films réalisés par « '.ucfirst($director_infos["firstname"])." ".ucfirst($director_infos["lastname"])." »";
-
 
 $content = ob_get_clean();
 

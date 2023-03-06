@@ -1,15 +1,15 @@
 <?php
 ob_start();
 ?>
-<form action="index.php?action=addActor" method="post">
+<form action="index.php?action=addDirector" method="post">
     <label>Prénom du réalisateur :</label>
-    <input type="text" name="first_name" id="first_name">
+    <input type="text" name="firstname" id="firstname">
     <label>Nom du réalisateur :</label>
-    <input type="text" name="last_name" id="last_name">
+    <input type="text" name="lastname" id="lastname">
     <label>Sexe du réalisateur :</label>
-    <input type="text" name="last_name" id="last_name">
+    <input type="text" name="sexe" id="sexe">
     <label>Date de naissance du réalisateur :</label>
-    <input type="date" name="last_name" id="last_name">
+    <input type="date" name="birthdate" id="birthdate">
 
     <input type="submit" name="submit" value="Ajouter le réalisateur">
 </form>

@@ -19,7 +19,7 @@
                 <li><a href="index.php?action=addGenre">Ajouter un genre</a></li>
                 <li><a href="index.php?action=addActor">Ajouter un acteur</a></li>
                 <li><a href="index.php?action=addRole">Ajouter un rôle</a></li>
-                <li><a href="index.php?action=addDirector">Ajouteur un réaliseur</a></li>
+                <li><a href="index.php?action=addDirector">Ajouter un réaliseur</a></li>
                 <li><a href="index.php?action=addCasting">Ajouter un casting</a></li>
             </ul>
             <div class="account-access">
