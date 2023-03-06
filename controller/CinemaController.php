@@ -228,22 +228,41 @@ class CinemaController
 		require "view/admin.php";
 	}
 
-	public function addMovie()
-	{
-		$pdo = Connect::connectToDb();
+	// public function addMovie()
+	// {
+	// 	if(isset($_POST["submit"])){
+	// 		$movie_name = $_POST["genre_name"];
+	// 		$release_year = $_POST["release_year"];
+	// 		$movie_length = $_POST["movie_length"];
+	// 		$synopsis = $_POST["synopsis"];
+	// 		$url_img = $_POST["url_img"];
+	// 		$note = $_POST["note"];
 
-		require "view/admin_add/addMovie.php";
-	}
+	// 		if($movie_name, $release_year, $movie_length, $synopsis, $url_img, $note){
+	// 			$pdo = Connect::connectToDb();
+	// 			$stmt = $pdo->prepare("
+	// 			INSERT INTO movie (movie_name, release_year, movie_length, synopsis, url_img, note)
+	// 			VALUES (testname, testrelease, 9999, testsynopsis, testurl, 5)	
+
+				
+	// 			")
+
+	// 		}
+		
+
+	// }
+	// 	require "view/admin_add/addMovie.php";
+	// }
 	public function addGenre()
 	{
 		
 		if(isset($_POST["submit"])){
 			$genre_name = $_POST["genre_name"];
 
-			$pdo = Connect::connectToDb();
 			$genre_name=filter_input(INPUT_POST, "genre_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 			
 			if($genre_name){
+				$pdo = Connect::connectToDb();
 				
 				
 				$stmt =$pdo->prepare("

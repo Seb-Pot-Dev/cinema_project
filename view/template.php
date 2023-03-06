@@ -28,7 +28,6 @@
             </div>
         </nav>
         <div>
-            <!-- <h1>Bienvenu sur Popcorn !</h1> -->
             <?php if (isset($secondary_title)) { ?>
                 <h2 class="list-title"><?= $secondary_title ?></h2>
             <?php } ?>
