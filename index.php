@@ -11,7 +11,7 @@ spl_autoload_register(function ($class_name) {
 $ctrlCinema = new CinemaController();
 
 if (isset($_GET["id"])) {
-	$id = $_GET["id"];
+	($id = filter_var($_GET["id"], FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE));
 }
 
 if (isset($_GET["action"])) {

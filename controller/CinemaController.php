@@ -231,7 +231,7 @@ class CinemaController
 	// public function addMovie()
 	// {
 	// 	if(isset($_POST["submit"])){
-	// 		$movie_name = $_POST["genre_name"];
+	// 		$movie_name = $_POST["movie_name"];
 	// 		$release_year = $_POST["release_year"];
 	// 		$movie_length = $_POST["movie_length"];
 	// 		$synopsis = $_POST["synopsis"];
@@ -242,9 +242,8 @@ class CinemaController
 	// 			$pdo = Connect::connectToDb();
 	// 			$stmt = $pdo->prepare("
 	// 			INSERT INTO movie (movie_name, release_year, movie_length, synopsis, url_img, note)
-	// 			VALUES (testname, testrelease, 9999, testsynopsis, testurl, 5)	
+	// 			VALUES (:movie_name, :release_year, :movie_length, :synopsis, :url_img, :note)	
 
-				
 	// 			")
 
 	// 		}
