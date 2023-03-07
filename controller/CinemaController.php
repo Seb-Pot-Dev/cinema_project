@@ -16,7 +16,7 @@ class CinemaController
 		// on effectue la requette de notre choix
 
 		$request = $pdo->query("
-        SELECT id_movie, movie_name, release_year, genre_name, DATE_FORMAT(movie_length, '%H:%i') AS movie_length, url_img
+        SELECT id_movie, movie_name, release_year, genre_name, movie_length, url_img
         FROM movie
         INNER JOIN genre ON genre.id_genre = movie.genre_id
 		ORDER BY release_year DESC
@@ -100,7 +100,7 @@ class CinemaController
 		$movie_name = "$id_movie";
 		// on prépare la requete et on l'execute dans un second temps pour éviter l'injection SQL (faille de sécu)
 		$request_film = $pdo->prepare("
-			SELECT movie_name, release_year, DATE_FORMAT(movie_length, '%H:%i') AS movie_length, synopsis, genre_name, d.firstname AS dir_firstname, d.lastname AS dir_lastname, note, url_img, id_director
+			SELECT movie_name, release_year, movie_length, synopsis, genre_name, d.firstname AS dir_firstname, d.lastname AS dir_lastname, note, url_img, id_director
 			FROM movie m
 			INNER JOIN director d ON m.director_id = d.id_director
 			INNER JOIN genre g ON g.id_genre = m.genre_id
@@ -248,7 +248,10 @@ class CinemaController
 			$release_year = $_POST["release_year"];
 			$movie_length = $_POST["movie_length"];
 			$synopsis = $_POST["synopsis"];
-			$url_img = $_POST["url_img"];
+			$url_img = $_POST["url_img"] ?? "public\img\kisspng-popcorn-caramel-corn-free-content-cinema-clip-art-how-to-draw-popcorn-5a848b58bd54c0.6191740315186358647755.png";
+			if (empty($url_img)) {
+				$url_img = "public\img\kisspng-popcorn-caramel-corn-free-content-cinema-clip-art-how-to-draw-popcorn-5a848b58bd54c0.6191740315186358647755.png";
+			}
 			$note = $_POST["note"];
 			$genre_id = $_POST["genre_id"];
 			$director_id=$_POST["director_id"];
@@ -409,19 +412,19 @@ class CinemaController
 	{
 		$pdo = Connect::connectToDb();
 
-		//LIST ACTOR pour FORM SELECT 
+		//request ACTOR pour FORM SELECT 
 		$requestActor = $pdo->query("
 			SELECT CONCAT(firstname, ' ', lastname) AS actor_fullname, id_actor
 			FROM actor
 		");
 
-		//LIST ROLE pour FORM SELECT
+		//request ROLE pour FORM SELECT
 		$requestRole = $pdo->query("
 			SELECT role_name, id_role
 			FROM role
 		");
 
-		//LIST GENRE pour FORM SELECT
+		//request GENRE pour FORM SELECT
 		$requestMovie = $pdo->query("
 			SELECT movie_name, id_movie
 			FROM movie

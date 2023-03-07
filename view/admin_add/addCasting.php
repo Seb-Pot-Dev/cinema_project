@@ -2,20 +2,11 @@
 ob_start();
 ?>
 <form action="index.php?action=addCasting" method="post">
-<label for="actor_id">Acteur du film : </label>           
+<label for="actor_id">Acteur: </label>           
         <select name ="actor_id" id="actor_id">
             <?php 
                 foreach($requestActor->fetchAll() as $actor){
                     echo "<option value='".$actor['id_actor']."'>".$actor['actor_fullname']."</option>";
-                }; ?>
-        </select> 
-
-        
-<label for="role_id">Rôle du film : </label>           
-        <select name ="role_id" id="role_id">
-            <?php 
-                foreach($requestRole->fetchAll() as $role){
-                    echo "<option value='".$role['id_role']."'>".$role['role_name']."</option>";
                 }; ?>
         </select> 
         
@@ -26,6 +17,15 @@ ob_start();
                     echo "<option value='".$movie['id_movie']."'>".$movie['movie_name']."</option>";
                 }; ?>
         </select> 
+        
+<label for="role_id">Rôle: </label>           
+        <select name ="role_id" id="role_id">
+            <?php 
+                foreach($requestRole->fetchAll() as $role){
+                    echo "<option value='".$role['id_role']."'>".$role['role_name']."</option>";
+                }; ?>
+        </select> 
+        
 <input type="submit" name="submit">
 </form>
 

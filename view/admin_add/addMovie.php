@@ -9,7 +9,7 @@ ob_start();
     <label for="release_year">Année de sortie :</label>
     <input type="number" name="release_year" id="release_year">
 
-    <label for="movie_length">Durée du film :</label>
+    <label for="movie_length">Durée du film (en minutes) :</label>
     <input type="number" name="movie_length" id="movie_length">
 
     <label for="synopsis">Synopsis :</label>

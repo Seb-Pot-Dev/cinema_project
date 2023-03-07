@@ -15,7 +15,14 @@ ob_start();
 					<span><?= $movie["movie_name"] ?></span>
 					<span class="release-date"><?= $movie["release_year"] ?></span>
 					<span><?= ucfirst($movie["genre_name"]) ?></span>
-					<span ><?= $movie["movie_length"] ?></span>
+						
+						<?php 
+						//convertir les minutes en format HH:ii
+						$minutes = $movie["movie_length"];
+						$movie_length = date('H:i', mktime(0,$minutes)); 
+						?>
+
+					<span ><?= $movie_length ?></span>
 				</div>
 				<img class="img-film" src="<?= $movie["url_img"]?>" alt="affiche du film <?=$movie["movie_name"]?>">
 			</div>
