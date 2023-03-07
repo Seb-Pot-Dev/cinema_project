@@ -1,26 +1,33 @@
 <?php
 ob_start();
 ?>
-<label for="">Choisir un film</label>
-    <select name="movie_id" id="movie_id">
-        <?php 
-    </select>
+<form action="index.php?action=addCasting" method="post">
+<label for="actor_id">Acteur du film : </label>           
+        <select name ="actor_id" id="actor_id">
+            <?php 
+                foreach($requestActor->fetchAll() as $actor){
+                    echo "<option value='".$actor['id_actor']."'>".$actor['actor_fullname']."</option>";
+                }; ?>
+        </select> 
 
-<label for="">Choisir un role</label>
-
-
-
-<label for="">Choisir un acteur</label>
-
-
-// FINIR ICI
-
-
-
-
-
-
-
+        
+<label for="role_id">Rôle du film : </label>           
+        <select name ="role_id" id="role_id">
+            <?php 
+                foreach($requestRole->fetchAll() as $role){
+                    echo "<option value='".$role['id_role']."'>".$role['role_name']."</option>";
+                }; ?>
+        </select> 
+        
+<label for="movie_id">Nom du film : </label>           
+        <select name ="movie_id" id="movie_id">
+            <?php 
+                foreach($requestMovie->fetchAll() as $movie){
+                    echo "<option value='".$movie['id_movie']."'>".$movie['movie_name']."</option>";
+                }; ?>
+        </select> 
+<input type="submit" name="submit">
+</form>
 
 <?php
 $title = "Ajouter un casting";

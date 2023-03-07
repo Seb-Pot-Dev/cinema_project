@@ -409,12 +409,6 @@ class CinemaController
 	{
 		$pdo = Connect::connectToDb();
 
-		//LIST GENRE pour FORM SELECT
-		$requestGenre = $pdo->query("
-			SELECT genre_name, id_genre
-			FROM genre 
-		");
-		
 		//LIST ACTOR pour FORM SELECT 
 		$requestActor = $pdo->query("
 			SELECT CONCAT(firstname, ' ', lastname) AS actor_fullname, id_actor
@@ -426,6 +420,29 @@ class CinemaController
 			SELECT role_name, id_role
 			FROM role
 		");
+
+		//LIST GENRE pour FORM SELECT
+		$requestMovie = $pdo->query("
+			SELECT movie_name, id_movie
+			FROM movie
+		");
+
+		if(isset($_POST['submit'])){
+			$actor_id = $_POST["actor_id"];
+			$role_id = $_POST["role_id"];
+			$movie_id = $_POST["movie_id"];
+
+				if($actor_id && $role_id && $movie_id){
+					$pdo = Connect::connectToDb();
+					$pdo->query("
+					INSERT INTO casting (actor_id, role_id, movie_id)
+					VALUES ($actor_id, $role_id, $movie_id)
+					");
+					header('Location: index.php?action=listCastings');
+					die();
+				};
+		}
+
 
 		require "view/admin_add/addCasting.php";
 	}
