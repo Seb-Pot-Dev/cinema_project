@@ -227,6 +227,7 @@ class CinemaController
 
 	public function addMovie()
 	{
+		
 		$pdo = Connect::connectToDb();
 
 		// LIST GENRE pour FORM SELECT

@@ -12,7 +12,7 @@ ob_start();
 			if(isset($request_actor_infos)){
 				$actor_infos = $request_actor_infos->fetch();?>
 				<span><?=$actor_infos["firstname"]." ".$actor_infos["lastname"]." est né le ".$actor_infos["birthdate"]?><br></span>
-				<span>Il a jouer dans les films suivants : <br><br></span>
+				<span>Il/Elle a joué dans les films suivants : <br><br></span>
 				<?php } ?>
 				
 				<?php 
@@ -33,7 +33,7 @@ $secondary_title = 'Tout les films dans lequel « '.ucfirst($actor_movie["firstn
 }
 
 			}else{ ?>
-				<span class="error">Cet acteur n'a jouer dans aucuns films.</span>
+				<span class="error">Cet acteur n'a joué dans aucun film.</span>
 				<?php
 			}
 $content = ob_get_clean();
