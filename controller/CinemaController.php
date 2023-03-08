@@ -8,7 +8,13 @@ use Model\Connect;
 class CinemaController
 {
 
-	// Lister les films
+	/*
+	PARTIE
+		LISTE
+*/
+
+
+	//***********************Lister les FILMS**************************************************************
 	public function listMovies()
 	{
 		// on se connecte
@@ -25,7 +31,7 @@ class CinemaController
 		require "view/listMovies.php";
 	}
 
-	// Lister les acteurs
+	//***********************Lister les ACTEURS**************************************************************
 	public function listActors()
 	{
 
@@ -38,7 +44,7 @@ class CinemaController
 		require "view/listActors.php";
 	}
 
-	// Lister les reals
+	//***********************Lister les REALISATEURS**************************************************************
 	public function listDirectors()
 	{
 		$pdo = Connect::connectToDb();
@@ -50,7 +56,7 @@ class CinemaController
 		require "view/listDirectors.php";
 	}
 
-	// Lister les genres
+	//***********************Lister les FILMS**************************************************************
 	public function listGenres()
 	{
 
@@ -63,7 +69,7 @@ class CinemaController
 		require "view/listGenres.php";
 	}
 
-	// Lister les roles
+	//***********************Lister les ROLES**************************************************************
 	public function listRoles()
 	{
 		$pdo = Connect::connectToDb();
@@ -75,7 +81,7 @@ class CinemaController
 
 		require "view/listRoles.php";
 	}
-
+	//***********************Lister les CASTINGS**************************************************************
 	public function listCastings()
 	{
 		$pdo = Connect::connectToDb();
@@ -91,7 +97,14 @@ class CinemaController
 		require "view/listCastings.php";
 	}
 
-	// Lister les info d'un film particulier
+
+	/*
+	PARTIE
+		DETAILS 
+*/
+
+
+	//***********************Lister les INFOS d'un FILM particulier**************************************************************
 	public function detailsMovie($id_movie)
 	{
 		// --------------- REQUETE POUR LES INFOS D'UN FILM ------------------ //
@@ -128,7 +141,7 @@ class CinemaController
 	}
 
 
-	// Lister les infos d'un acteur particulier
+	//***********************Lister les INFOS d'un ACTEUR particulier**************************************************************
 	public function detailsActor($id_actor)
 	{
 		// --------------- REQUETE POUR LES INFOS D'UN ACTEUR ------------------ //
@@ -151,7 +164,7 @@ class CinemaController
 		$actor_name = "$id_actor";
 
 		$request_actor_list_movies = $pdo->prepare("
-			SELECT a.id_actor, a.firstname, a.lastname, m.movie_name, m.release_year, m.movie_length, r.role_name, m.id_movie
+			SELECT a.id_actor, m.movie_name, m.release_year, r.role_name, m.id_movie
 			FROM actor a
 			INNER JOIN casting c ON c.actor_id = a.id_actor
 			INNER JOIN movie m ON m.id_movie = c.movie_id
@@ -165,7 +178,7 @@ class CinemaController
 
 		require "view/detailsActor.php";
 	}
-
+	//***********************Lister les INFOS d'un GENRE particulier**************************************************************
 	public function detailsGenre($id_genre)
 	{
 
@@ -195,6 +208,7 @@ class CinemaController
 
 		require "view/detailsGenre.php";
 	}
+	//***********************Lister les INFOS d'un REALISATEUR particulier**************************************************************
 
 	public function detailsDirector($id_director)
 	{
@@ -232,15 +246,24 @@ class CinemaController
 
 		require "view/detailsDirector.php";
 	}
-	
+
+
+
+	/*
+	PARTIE
+	ADMINISTRATEUR
+*/
+
+	//***********************REDIRIGER VERS LA PAGE ADMIN**************************************************************
+
 	public function admin()
 	{
 		require "view/admin.php";
 	}
-
+	//***********************AJOUTER un FILM en BDD**************************************************************
 	public function addMovie()
 	{
-		
+
 		$pdo = Connect::connectToDb();
 
 		// LIST GENRE pour FORM SELECT
@@ -255,172 +278,172 @@ class CinemaController
 		FROM director
 		");
 
+		// AJOUT des DONNEES en BDD
+		if (isset($_POST["submit"])) {
 
-		if(isset($_POST["submit"])){
-
-				//FILTRER l'input puis l'ASSOCIER a la variable
-				$movie_name = filter_input(INPUT_POST, "movie_name", FILTER_SANITIZE_SPECIAL_CHARS);
-				$release_year = filter_input(INPUT_POST, "release_year", FILTER_SANITIZE_NUMBER_INT);
-				$movie_length = filter_input(INPUT_POST, "movie_length", FILTER_SANITIZE_NUMBER_INT);
-				$synopsis = filter_input(INPUT_POST, "synopsis", FILTER_SANITIZE_SPECIAL_CHARS);
-				$url_img = filter_input(INPUT_POST, "url_img", FILTER_SANITIZE_SPECIAL_CHARS);
-				if (empty($url_img)) {
-					$url_img = "public/img/kisspng-popcorn-caramel-corn-free-content-cinema-clip-art-how-to-draw-popcorn-5a848b58bd54c0.6191740315186358647755.png";
-				}
-				$note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_INT);
-				$genre_id = filter_input(INPUT_POST, "genre_id", FILTER_SANITIZE_NUMBER_INT);
-				$director_id = filter_input(INPUT_POST, "director_id", FILTER_SANITIZE_NUMBER_INT);
-				
+			/*FILTRER l'input pour éviter les failles XSS
+					puis l'ASSOCIER a la variable */
+			$movie_name = filter_input(INPUT_POST, "movie_name", FILTER_SANITIZE_SPECIAL_CHARS);
+			$release_year = filter_input(INPUT_POST, "release_year", FILTER_SANITIZE_NUMBER_INT);
+			$movie_length = filter_input(INPUT_POST, "movie_length", FILTER_SANITIZE_NUMBER_INT);
+			$synopsis = filter_input(INPUT_POST, "synopsis", FILTER_SANITIZE_SPECIAL_CHARS);
+			$url_img = filter_input(INPUT_POST, "url_img", FILTER_SANITIZE_SPECIAL_CHARS);
+			if (empty($url_img)) {
+				$url_img = "public/img/kisspng-popcorn-caramel-corn-free-content-cinema-clip-art-how-to-draw-popcorn-5a848b58bd54c0.6191740315186358647755.png";
+			}
+			$note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_INT);
+			$genre_id = filter_input(INPUT_POST, "genre_id", FILTER_SANITIZE_NUMBER_INT);
+			$director_id = filter_input(INPUT_POST, "director_id", FILTER_SANITIZE_NUMBER_INT);
 
 
-			if($movie_name && $release_year && $movie_length && $synopsis && $url_img && $note && $genre_id && $director_id){
+			// VERIFIER que toute les variables ont une valeur
+			if ($movie_name && $release_year && $movie_length && $synopsis && $url_img && $note && $genre_id && $director_id) {
 				$pdo = Connect::connectToDb();
-	
+
+				//prepare la requete pour éviter les injections SQL puis execute
 				$stmt = $pdo->prepare("
 				INSERT INTO movie (movie_name, release_year, movie_length, synopsis, url_img, note, genre_id, director_id)
 				VALUES (:movie_name, :release_year, :movie_length, :synopsis, :url_img, :note, :genre_id, :director_id)	
 				");
-	
-				$stmt->execute(["movie_name"=>$movie_name, "release_year"=>$release_year, "movie_length"=>$movie_length, "synopsis"=>$synopsis, "url_img"=>$url_img, "note"=>$note, "genre_id"=>$genre_id, "director_id"=>$director_id
+
+				$stmt->execute([
+					"movie_name" => $movie_name, "release_year" => $release_year, "movie_length" => $movie_length, "synopsis" => $synopsis, "url_img" => $url_img, "note" => $note, "genre_id" => $genre_id, "director_id" => $director_id
 				]);
-	
+
 				header('Location: index.php?action=listMovies');
 				die();
 			}
 		}
 		require "view/admin_add/addMovie.php";
-
-		
 	}
-
+	//***********************AJOUTER un GENRE en BDD**************************************************************
 	public function addGenre()
 	{
-		if(isset($_POST["submit"])){
-			//FILTER et ASSOCIER a une variable
-			$genre_name = $_POST["genre_name"]=filter_input(INPUT_POST, "genre_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (isset($_POST["submit"])) {
+			/* FILTRER pour eviter failles XSS 
+				puis associer a une variable */
+			$genre_name = filter_input(INPUT_POST, "genre_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-			//VERIFICATION SI DEFINI
-			if($genre_name){
+			//VERIFIER si DEFINI
+			if ($genre_name) {
 				$pdo = Connect::connectToDb();
-				
-				
-				$stmt =$pdo->prepare("
+
+				//prepare pour éviter injection SQL puis execute
+				$stmt = $pdo->prepare("
 				INSERT INTO genre (genre_name)
 				VALUES (:genre_name)
 				");
-				
-				$stmt->execute(["genre_name"=>$genre_name]);
+
+				$stmt->execute(["genre_name" => $genre_name]);
 
 				header('Location: index.php?action=listGenres');
 				die();
 			}
 		}
-		
+
 		require "view/admin_add/addGenre.php";
 	}
 
-
+	//***********************AJOUTER un ACTEUR en BDD**************************************************************
 	public function addActor()
 	{
 
-		if(isset($_POST["submit"])){
-			//FILTER
-			$_POST["birthdate"]= filter_input(INPUT_POST, "birthdate", FILTER_SANITIZE_SPECIAL_CHARS);
-			$_POST["firstname"]= filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_SPECIAL_CHARS);
-			$_POST["lastname"]= filter_input(INPUT_POST, "lastname", FILTER_SANITIZE_SPECIAL_CHARS);
-			$_POST["sexe"]= filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_SPECIAL_CHARS);
+		if (isset($_POST["submit"])) {
+			/* FILTRER pour eviter failles XSS 
+				puis associer a une variable */
+			$birthdate = filter_input(INPUT_POST, "birthdate", FILTER_SANITIZE_SPECIAL_CHARS);
+			$firstname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_SPECIAL_CHARS);
+			$lastname =  filter_input(INPUT_POST, "lastname", FILTER_SANITIZE_SPECIAL_CHARS);
+			$sexe =  filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_SPECIAL_CHARS);
 
-			//ASSOCIATION A VARIABLE
-			$birthdate=$_POST["birthdate"];
-			$firstname=$_POST["firstname"];
-			$lastname=$_POST["lastname"];
-			$sexe=$_POST["sexe"];
 
-			if($firstname && $lastname && $sexe && $birthdate){
+			// VERIFIER si DEFINI
+			if ($firstname && $lastname && $sexe && $birthdate) {
 
 				$pdo = Connect::connectToDb();
 
+				//prepare pour éviter injection SQL puis execute
 				$stmt = $pdo->prepare("
 				INSERT INTO actor (firstname, lastname, sexe, birthdate)
 				VALUES (:firstname, :lastname, :sexe, :birthdate)
 				");
 
-				$stmt->execute(["firstname"=>$firstname, "lastname"=>$lastname, "sexe"=>$sexe, "birthdate"=>$birthdate]);
-				
+				$stmt->execute(["firstname" => $firstname, "lastname" => $lastname, "sexe" => $sexe, "birthdate" => $birthdate]);
+
 				header('location:index.php?action=listActors');
 				die();
-				}
-
 			}
+		}
 
 		require "view/admin_add/addActor.php";
 	}
 
-	
+	//***********************AJOUTER un ROLE en BDD**************************************************************
 	public function addRole()
 	{
-		if(isset($_POST["submit"])){
+		if (isset($_POST["submit"])) {
 
-			$role_name=filter_input(INPUT_POST, "role_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-			
-			$role_name = $_POST["role_name"];
-			
-			if($role_name){
-				
+			/* FILTRER pour eviter failles XSS 
+				puis associer a une variable */
+			$role_name = filter_input(INPUT_POST, "role_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+			//VERIFIE si DEFINI
+			if ($role_name) {
+
 				$pdo = Connect::connectToDb();
-				
-				$stmt =$pdo->prepare("
+
+				//prepare pour éviter injection SQL puis execute
+				$stmt = $pdo->prepare("
 				INSERT INTO role (role_name)
 				VALUES (:role_name)
 				");
-				
-				$stmt->execute(["role_name"=>$role_name]);
+
+				$stmt->execute(["role_name" => $role_name]);
 
 				header('Location: index.php?action=listRoles');
 				die();
 			}
 		}
-		
+
 
 		require "view/admin_add/addRole.php";
 	}
-	
+
+	//***********************AJOUTER un REALISATEUR en BDD**************************************************************
 	public function addDirector()
 	{
 
-		if(isset($_POST["submit"])){
-			//FILTER
-			$_POST["birthdate"]= filter_input(INPUT_POST, "birthdate", FILTER_SANITIZE_SPECIAL_CHARS);
-			$_POST["firstname"]= filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_SPECIAL_CHARS);
-			$_POST["lastname"]= filter_input(INPUT_POST, "lastname", FILTER_SANITIZE_SPECIAL_CHARS);
-			$_POST["sexe"]= filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_SPECIAL_CHARS);
-			
-			//ASSOCIATION A VARIABLE
-			$birthdate=$_POST["birthdate"];
-			$firstname=$_POST["firstname"];
-			$lastname=$_POST["lastname"];
-			$sexe=$_POST["sexe"];
+		if (isset($_POST["submit"])) {
 
-			if($firstname && $lastname && $sexe && $birthdate){
+			/* FILTRER pour eviter failles XSS 
+				puis associer a une variable */
+			$birthdate= filter_input(INPUT_POST, "birthdate", FILTER_SANITIZE_SPECIAL_CHARS);
+			$firstname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_SPECIAL_CHARS);
+			$lastname = filter_input(INPUT_POST, "lastname", FILTER_SANITIZE_SPECIAL_CHARS);
+			$sexe= filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_SPECIAL_CHARS);
+
+			//VERIFIE si DEFINI
+			if ($firstname && $lastname && $sexe && $birthdate) {
 
 				$pdo = Connect::connectToDb();
 
+				//prepare pour éviter injection SQL puis execute
 				$stmt = $pdo->prepare("
 				INSERT INTO director (firstname, lastname, sexe, birthdate)
 				VALUES (:firstname, :lastname, :sexe, :birthdate)
 				");
 
-				$stmt->execute(["firstname"=>$firstname, "lastname"=>$lastname, "sexe"=>$sexe, "birthdate"=>$birthdate]);
-				
+				$stmt->execute(["firstname" => $firstname, "lastname" => $lastname, "sexe" => $sexe, "birthdate" => $birthdate]);
+
 				header('location:index.php?action=listDirectors');
 				die();
-				}
-
 			}
+		}
 
 		require "view/admin_add/addDirector.php";
 	}
 
+	//***********************AJOUTER un CASTING en BDD**************************************************************
 	public function addCasting()
 	{
 		$pdo = Connect::connectToDb();
@@ -443,22 +466,30 @@ class CinemaController
 			FROM movie
 		");
 
-		if(isset($_POST['submit'])){
-			$actor_id = $_POST["actor_id"];
-			$role_id = $_POST["role_id"];
-			$movie_id = $_POST["movie_id"];
+		if (isset($_POST['submit'])) {
 
-				if($actor_id && $role_id && $movie_id){
-					$pdo = Connect::connectToDb();
-					$pdo->query("
+			/* FILTRER pour eviter failles XSS 
+				puis associer a une variable */
+			$actor_id= filter_input(INPUT_POST, "actor_id", FILTER_SANITIZE_SPECIAL_CHARS);
+			$role_id = filter_input(INPUT_POST, "role_id", FILTER_SANITIZE_SPECIAL_CHARS);
+			$movie_id = filter_input(INPUT_POST, "movie_id", FILTER_SANITIZE_SPECIAL_CHARS);
+
+			//Vérifie si DEFINI 
+			if ($actor_id && $role_id && $movie_id) {
+				$pdo = Connect::connectToDb();
+
+				$stmt = $pdo->prepare("
 					INSERT INTO casting (actor_id, role_id, movie_id)
-					VALUES ($actor_id, $role_id, $movie_id)
+					VALUES (:actor_id, :role_id, :movie_id)
 					");
-					header('Location: index.php?action=listCastings');
-					die();
-				};
-		}
 
+				$stmt->execute(["actor_id" => $actor_id, "role_id" => $role_id, "movie_id" => $movie_id]);
+
+
+				header('Location: index.php?action=listCastings');
+				die();
+			};
+		}
 
 		require "view/admin_add/addCasting.php";
 	}
