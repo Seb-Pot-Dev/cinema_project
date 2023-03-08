@@ -14,7 +14,7 @@
     <main>
         <nav>
             <h2 class="logo"><a href="index.php?action=listMovies"> Pop <span class="corn">corn</a></h2>
-            <ul>
+            <ul class="menu">
                 <li><a href="index.php?action=listMovies">Films</a></li>
                 <li><a href="index.php?action=listGenres">Genre</a></li>
                 <li><a href="index.php?action=listActors">Acteurs</a></li>
@@ -26,6 +26,7 @@
                 <a class="subscribe">S'inscrire</a>
                 <a class="subscribe" href="index.php?action=admin">Admin</a>
             </div>
+            
         </nav>
         <div>
             <?php if (isset($secondary_title)) { ?>
@@ -37,6 +38,15 @@
         </div>
         <!-- </div> -->
     </main>
+    <script>
+		const hamburger = document.querySelector(".hamburger");
+		const nav = document.querySelector("nav");
+
+		hamburger.addEventListener("click", () => {
+		  nav.classList.toggle("open");
+		});
+	</script>
+
 </body>
 
 </html>
