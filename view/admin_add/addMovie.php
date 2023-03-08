@@ -4,7 +4,7 @@ ob_start();
 <form action="index.php?action=addMovie" method="post">
 
     <label for="movie_name">Nom du film :</label>
-    <input type="text" name="movie_name" id="movie_name">
+    <input type="textarea" name="movie_name" id="movie_name">
 
     <label for="release_year">Année de sortie :</label>
     <input type="number" name="release_year" id="release_year">
@@ -13,10 +13,10 @@ ob_start();
     <input type="number" name="movie_length" id="movie_length">
 
     <label for="synopsis">Synopsis :</label>
-    <input type="text" name="synopsis" id="synopsis">
+    <input type="textarea" name="synopsis" id="synopsis">
 
     <label for="url_img">URL de l'image (affiche) :</label>
-    <input type="text" name="url_img" id="url_img">
+    <input type="textarea" name="url_img" id="url_img">
 
     <label for="note">Note du film sur 5 :</label>
     <input type="number" min="0" max="5" name="note" id="note">

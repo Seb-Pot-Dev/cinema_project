@@ -3,11 +3,11 @@ ob_start();
 ?>
 <form action="index.php?action=addDirector" method="post">
     <label>Prénom du réalisateur :</label>
-    <input type="text" name="firstname" id="firstname">
+    <input type="textarea" name="firstname" id="firstname">
     <label>Nom du réalisateur :</label>
-    <input type="text" name="lastname" id="lastname">
+    <input type="textarea" name="lastname" id="lastname">
     <label>Sexe du réalisateur :</label>
-    <input type="text" name="sexe" id="sexe">
+    <input type="textarea" name="sexe" id="sexe">
     <label>Date de naissance du réalisateur :</label>
     <input type="date" name="birthdate" id="birthdate">
 

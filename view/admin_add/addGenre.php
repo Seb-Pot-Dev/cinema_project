@@ -3,7 +3,7 @@ ob_start();
 ?>
 <form action="index.php?action=addGenre" method="post">
     <label>Nom du genre :</label>
-    <input type="text" name="genre_name" id="genre_name">
+    <input type="textarea" name="genre_name" id="genre_name">
     <input type="submit" name="submit" value="Ajouter le genre">
 </form>
 

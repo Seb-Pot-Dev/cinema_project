@@ -3,7 +3,7 @@ ob_start();
 ?>
 <form action="index.php?action=addRole" method="post">
     <label>Nom du rôle :</label>
-    <input type="text" name="role_name" id="role_name">
+    <input type="textarea" name="role_name" id="role_name">
     <input type="submit" name="submit" value="Ajouter le rôle">
 </form>
 

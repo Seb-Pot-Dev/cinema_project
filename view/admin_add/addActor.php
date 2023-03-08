@@ -4,16 +4,16 @@ ob_start();
 <form action="index.php?action=addActor" method="post">
 
     <label for="first_name">Prénom de l'acteur :</label>
-        <input type="text" name="firstname" id="first_name">
+    <input type="textarea" name="firstname" id="first_name">
 
     <label for="last_name">Nom de l'acteur :</label>
-        <input type="text" name="lastname" id="last_name">
+    <input type="textarea" name="lastname" id="last_name">
 
     <label for="sexe">Sexe de l'acteur :</label>
-        <input type="text" name="sexe" id="sexe">
+    <input type="textarea" name="sexe" id="sexe">
 
     <label for="birthdate">Date de naissance de l'acteur :</label>
-        <input type="date" name="birthdate" id="birthdate">
+    <input type="date" name="birthdate" id="birthdate">
 
     <input type="submit" name="submit" value="Ajouter l'acteur'">
 </form>
