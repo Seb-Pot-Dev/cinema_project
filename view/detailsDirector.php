@@ -14,7 +14,7 @@ ob_start();
 				$director_infos = $request_director_infos->fetch();
 			?>
 			<span><?=$director_infos["firstname"]." ".$director_infos["lastname"]." est né le ".$director_infos["birthdate"]?><br></span>
-			<span>Il a réaliser les films suivants : <br><br></span>
+			<span>Il/Elle a réalisé(e) le/les film(s) suivant(s) : <br><br></span>
 				<?php } ?>
 			<?php 
 			if($request_director_list_movies->rowCount()>0){

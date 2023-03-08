@@ -25,7 +25,7 @@ $movie = $request_film->fetch();
 			echo str_repeat("<i class='fa-solid fa-star'></i>", $times);
 			echo str_repeat("<i class='fa-regular fa-star'></i>", 5-$times); ?> 
 			</span>
-
+			<span>Synopsis : <?= $movie["synopsis"]?></span>
 			<?php 
 			// condition pour vérifier si le film possède des acteurs :
 			if($request_casting->rowCount()>0){ ?>

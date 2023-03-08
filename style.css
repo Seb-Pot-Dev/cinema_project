@@ -11,25 +11,16 @@
     --clickable: rgb(255, 0, 0);
     
   }
-  /* index : NAVBAR */
   *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: 'Josefin Sans', sans-serif;
 }
-/*--------------------*/
-/* .hero{
-    height: 100vh;
-    width: 100%;
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(public\img\PTfWdgFHpcX4mWdGDLKYGg.jpg);
-    background-size: cover;
-    background-position: center;
-} */
 main{
-  
   background-color: #ededed;
 }
+/*------------------------NAV--------------------------*/
 nav{
     display: flex;
     align-items:flex-end;

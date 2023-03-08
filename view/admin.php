@@ -13,7 +13,7 @@
 <body>
     <main>
         <nav>
-            <h2 class="logo">Pop <span class="corn">corn</h2>
+            <h2 class="logo"> <a href="index.php?action=listMovies"> Pop <span class="corn">corn</a></h2>
             <ul>
                 <li><a href="index.php?action=addMovie">Ajouter un film</a></li>
                 <li><a href="index.php?action=addGenre">Ajouter un genre</a></li>

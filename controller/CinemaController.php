@@ -169,16 +169,29 @@ class CinemaController
 	public function detailsGenre($id_genre)
 	{
 
+		//-------------- REQUETE pour les INFOS d'un GENRE ------------------- //
 		$pdo = Connect::connectToDb();
 		$genre_name = "$id_genre";
-		$request = $pdo->prepare("
-			SELECT m.movie_name, m.release_year, DATE_FORMAT(m.movie_length, '%H:%i') AS movie_length, m.genre_id, genre_name, m.id_movie
+		$request_genre_infos = $pdo->prepare("
+			SELECT genre_name, id_genre
+			FROM genre
+			WHERE id_genre = :id_genre
+		");
+		$request_genre_infos->execute(["id_genre" => $id_genre]);
+
+
+		//---------------REQUETE pour la LISTE de films d'un GENRE
+		$pdo = Connect::connectToDb();
+		$genre_name = "$id_genre";
+		$request_genre_list_movies = $pdo->prepare("
+			SELECT m.movie_name, m.release_year, m.movie_length, m.genre_id, genre_name, m.id_movie
 			FROM movie m 
 			INNER JOIN genre g ON g.id_genre = m.genre_id
 			WHERE g.id_genre = :id_genre
 			ORDER BY release_year DESC
 		");
-		$request->execute(["id_genre" => $id_genre]);
+		$request_genre_list_movies->execute(["id_genre" => $id_genre]);
+
 
 		require "view/detailsGenre.php";
 	}
@@ -245,17 +258,19 @@ class CinemaController
 
 		if(isset($_POST["submit"])){
 
-			$movie_name = $_POST["movie_name"];
-			$release_year = $_POST["release_year"];
-			$movie_length = $_POST["movie_length"];
-			$synopsis = $_POST["synopsis"];
-			$url_img = $_POST["url_img"] ?? "public\img\kisspng-popcorn-caramel-corn-free-content-cinema-clip-art-how-to-draw-popcorn-5a848b58bd54c0.6191740315186358647755.png";
-			if (empty($url_img)) {
-				$url_img = "public\img\kisspng-popcorn-caramel-corn-free-content-cinema-clip-art-how-to-draw-popcorn-5a848b58bd54c0.6191740315186358647755.png";
-			}
-			$note = $_POST["note"];
-			$genre_id = $_POST["genre_id"];
-			$director_id=$_POST["director_id"];
+				//FILTRER l'input puis l'ASSOCIER a la variable
+				$movie_name = filter_input(INPUT_POST, "movie_name", FILTER_SANITIZE_SPECIAL_CHARS);
+				$release_year = filter_input(INPUT_POST, "release_year", FILTER_SANITIZE_NUMBER_INT);
+				$movie_length = filter_input(INPUT_POST, "movie_length", FILTER_SANITIZE_NUMBER_INT);
+				$synopsis = filter_input(INPUT_POST, "synopsis", FILTER_SANITIZE_SPECIAL_CHARS);
+				$url_img = filter_input(INPUT_POST, "url_img", FILTER_SANITIZE_SPECIAL_CHARS);
+				if (empty($url_img)) {
+					$url_img = "public/img/kisspng-popcorn-caramel-corn-free-content-cinema-clip-art-how-to-draw-popcorn-5a848b58bd54c0.6191740315186358647755.png";
+				}
+				$note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_INT);
+				$genre_id = filter_input(INPUT_POST, "genre_id", FILTER_SANITIZE_NUMBER_INT);
+				$director_id = filter_input(INPUT_POST, "director_id", FILTER_SANITIZE_NUMBER_INT);
+				
 
 
 			if($movie_name && $release_year && $movie_length && $synopsis && $url_img && $note && $genre_id && $director_id){
@@ -281,11 +296,8 @@ class CinemaController
 	public function addGenre()
 	{
 		if(isset($_POST["submit"])){
-			//FILTER
-			$_POST["genre_name"]=filter_input(INPUT_POST, "genre_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-			
-			//ASSOCIATION A VARIABLE
-			$genre_name = $_POST["genre_name"];
+			//FILTER et ASSOCIER a une variable
+			$genre_name = $_POST["genre_name"]=filter_input(INPUT_POST, "genre_name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 			//VERIFICATION SI DEFINI
 			if($genre_name){

@@ -22,20 +22,23 @@ ob_start();
 				<span> - <a href="index.php?action=detailsMovie&id=<?=$actor_movie['id_movie']?>"><?= $actor_movie["movie_name"]."</a> (". $actor_movie["release_year"].") 
 				dans le role de ".$actor_movie["role_name"]?><br> </span>
 			
-			</div>
-			</div>
+			
+			
+			<?php
 
-
-<?php
-
-$title = 'Tout les films dans lequel « '.ucfirst($actor_movie["firstname"])." ".ucfirst($actor_movie["lastname"])." »";
-$secondary_title = 'Tout les films dans lequel « '.ucfirst($actor_movie["firstname"])." ".ucfirst($actor_movie["lastname"])." »";
 }
 
-			}else{ ?>
+}else{ ?>
 				<span class="error">Cet acteur n'a joué dans aucun film.</span>
 				<?php
-			}
+			} 
+			$title = 'Tout les films dans lequel « '.ucfirst($actor_infos["firstname"])." ".ucfirst($actor_infos["lastname"])." »";
+			$secondary_title = 'Tout les films dans lequel « '.ucfirst($actor_infos["firstname"])." ".ucfirst($actor_infos["lastname"])." »";
+			?>
+	</div>
+</div>
+
+<?php
 $content = ob_get_clean();
 
 // Le require de fin permet d'injecter le contenu dans le template "squelette"  > template.php
