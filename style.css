@@ -273,3 +273,58 @@ p.row-count-list{
   form select{
     width: 30%;
   }
+
+
+
+  /* Media queries for responsiveness */
+@media screen and (max-width: 768px) {
+
+  /* NAV */
+  nav {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  nav h2 {
+    margin-bottom: 20px;
+  }
+
+  nav ul li {
+    padding: 10px 10px;
+  }
+
+  /* LIST FILMS */
+  
+  .movie-card {
+    width: 90%;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .movid-card-infos {
+    margin-top: 20px;
+  }
+
+  .img-film {
+    width: 30%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  /* DETAIL VIEW */
+  .movie-card-detail {
+    width: 90%;
+    max-width: 90%;
+  }
+
+
+  /* ADMIN FORM */
+  form {
+    width: 80%;
+  }
+
+  form select {
+    width: 60%;
+    margin-bottom: 20px;
+  }
+}
