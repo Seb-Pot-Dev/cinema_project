@@ -287,7 +287,7 @@ class CinemaController
 			$release_year = filter_input(INPUT_POST, "release_year", FILTER_SANITIZE_NUMBER_INT);
 			$movie_length = filter_input(INPUT_POST, "movie_length", FILTER_SANITIZE_NUMBER_INT);
 			$synopsis = filter_input(INPUT_POST, "synopsis", FILTER_SANITIZE_SPECIAL_CHARS);
-			$url_img = filter_input(INPUT_POST, "url_img", FILTER_SANITIZE_SPECIAL_CHARS);
+			$url_img = filter_input(INPUT_POST, "url_img", FILTER_SANITIZE_URL);
 			if (empty($url_img)) {
 				$url_img = "public/img/kisspng-popcorn-caramel-corn-free-content-cinema-clip-art-how-to-draw-popcorn-5a848b58bd54c0.6191740315186358647755.png";
 			}

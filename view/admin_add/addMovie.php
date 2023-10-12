@@ -13,10 +13,10 @@ ob_start();
     <input type="number" name="movie_length" id="movie_length">
 
     <label for="synopsis">Synopsis :</label>
-    <input type="textarea" name="synopsis" id="synopsis">
+    <textarea name="synopsis" id="synopsis" rows="3" placeholder="Synopsis" ></textarea>
 
     <label for="url_img">URL de l'image (affiche) :</label>
-    <input type="textarea" name="url_img" id="url_img">
+    <input type="url" name="url_img" id="url_img">
 
     <label for="note">Note du film sur 5 :</label>
     <input type="number" min="0" max="5" name="note" id="note">
@@ -26,9 +26,8 @@ ob_start();
 // formulaire "select" pour avoir un menu déroulant 
 // le label est associé au select car for = id
 
-// Pour le genre du film
-
-    //définition de la variable en utilisant fetchAll sur la request
+    /* Pour le choix du GENRE du film
+    définition de la variable en utilisant fetchAll sur la request*/
 $AllGenres=$requestGenre->fetchAll();?>    
 
     <label for="genre_id">Genre du film : </label>           
@@ -40,9 +39,8 @@ $AllGenres=$requestGenre->fetchAll();?>
 
     <?php
 
-// Pour le réalisateur du film
-    //définition de la variable en utilisant fetchAll sur la request
-
+    /* Pour le choix du REALISATEUR du film
+    définition de la variable en utilisant fetchAll sur la request*/
 $AllDirector=$requestDirector->fetchAll();?>  
 
     <label for="director_id">Réalisateur du film</label>

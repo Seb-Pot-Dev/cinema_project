@@ -11,41 +11,29 @@
 </head>
 
 <body>
-    <main>
-        <nav>
-            <h2 class="logo"><a href="index.php?action=listMovies"> Pop <span class="corn">corn</a></h2>
-            <ul class="menu">
-                <li><a href="index.php?action=listMovies">Films</a></li>
-                <li><a href="index.php?action=listGenres">Genre</a></li>
-                <li><a href="index.php?action=listActors">Acteurs</a></li>
-                <li><a href="index.php?action=listRoles">Rôles</a></li>
-                <li><a href="index.php?action=listDirectors">Réalisateurs</a></li>
-                <li><a href="index.php?action=listCastings">Castings</a></li>
-            </ul>
-            <div class="account-access">
-                <a class="subscribe">S'inscrire</a>
-                <a class="subscribe" href="index.php?action=admin">Admin</a>
-            </div>
-            
-        </nav>
-        <div>
+    <nav>
+        <h2 class="logo"><a href="index.php?action=listMovies"> Pop <span class="corn">corn</a></h2>
+        <ul class="menu">
+            <li><a href="index.php?action=listMovies">Films</a></li>
+            <li><a href="index.php?action=listGenres">Genre</a></li>
+            <li><a href="index.php?action=listActors">Acteurs</a></li>
+            <li><a href="index.php?action=listRoles">Rôles</a></li>
+            <li><a href="index.php?action=listDirectors">Réalisateurs</a></li>
+            <li><a href="index.php?action=listCastings">Castings</a></li>
+        </ul>
+        <div class="account-access">
+            <a class="subscribe">S'inscrire</a>
+            <a class="subscribe" href="index.php?action=admin">Admin</a>
+        </div>
+    </nav>
+            <main>
             <?php if (isset($secondary_title)) { ?>
                 <h2 class="list-title"><?= $secondary_title ?></h2>
             <?php } ?>
             <?php if (isset($content)) { ?>
                 <?= $content ?>
             <?php } ?>
-        </div>
-        <!-- </div> -->
-    </main>
-    <script>
-		const hamburger = document.querySelector(".hamburger");
-		const nav = document.querySelector("nav");
-
-		hamburger.addEventListener("click", () => {
-		  nav.classList.toggle("open");
-		});
-	</script>
+            </main>
 
 </body>
 

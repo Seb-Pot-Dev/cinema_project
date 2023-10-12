@@ -10,8 +10,10 @@ ob_start();
     <input type="textarea" name="lastname" id="last_name">
 
     <label for="sexe">Sexe de l'acteur :</label>
-    <input type="textarea" name="sexe" id="sexe">
-
+        <select name="sexe" id="sexe">
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
+        </select>
     <label for="birthdate">Date de naissance de l'acteur :</label>
     <input type="date" name="birthdate" id="birthdate">
 
