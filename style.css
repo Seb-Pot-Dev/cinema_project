@@ -149,8 +149,13 @@ p.row-count-list {
   object-fit: cover;
   border-radius: 3px;
 }
+<<<<<<< HEAD
 .img-film-big {
   width: 500px;
+=======
+.img-film-big{
+  width: 90%;
+>>>>>>> 5ee7ec7569dc2f2eb5e52ffc5a86b23b2bd1634c
   height: auto;
   object-fit: contain;
   display: flex;
@@ -326,10 +331,16 @@ textarea {
     width: 90%;
     max-width: 90%;
   }
+<<<<<<< HEAD
 
+=======
+  
+  /* ADMIN FORM */
+>>>>>>> 5ee7ec7569dc2f2eb5e52ffc5a86b23b2bd1634c
   form {
     width: 80%;
   }
+  
 
   form select {
     width: 60%;
