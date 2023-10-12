@@ -13,6 +13,7 @@ $movie = $request_film->fetch();
 			<span>Un film de <a href="index.php?action=detailsDirector&id=<?=$movie['id_director']?>"><?= $movie["dir_firstname"]." ".$movie["dir_lastname"]?></a></span>
 			<span>Genre : <?= ucfirst($movie["genre_name"]) ?></span>
 			<span>Année de parution : <?= $movie["release_year"] ?></span>
+			
 			<span>Durée du film : 
 				<?php
 				//convertir les minutes en format HH:ii
@@ -21,10 +22,12 @@ $movie = $request_film->fetch();
 				echo $movie_length;
 				?>
 			</span>
-			<span>Note : <?php $times = $movie["note"];
-			echo str_repeat("<i class='fa-solid fa-star'></i>", $times);
-			echo str_repeat("<i class='fa-regular fa-star'></i>", 5-$times); ?> 
+			<span>
+				Note : <?php $times = $movie["note"];
+				echo str_repeat("<i class='fa-solid fa-star'></i>", $times);
+				echo str_repeat("<i class='fa-regular fa-star'></i>", 5-$times); ?> 
 			</span>
+
 			<span>Synopsis : <?= $movie["synopsis"]?></span>
 			<?php 
 			// condition pour vérifier si le film possède des acteurs :
